@@ -70,7 +70,7 @@
               <label>Short By:</label>
               <div class="dropdown show">
                 <button class="btn btn-filter dropdown-toggle" type="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-                  <span class="selection">Most Rated</span>
+                  <span class="selection">News Listings</span>
                 </button>
                 <div class="drp-select dropdown-menu" aria-labelledby="dropdownMenuLink">
                   <a class="dropdown-item" href="JavaScript:Void(0);">Most Rated</a>
@@ -299,9 +299,14 @@
             <!-- End Single Property -->
 
             {% endfor %}
-          {% else %}
-            <div class="col-ms-12">
-              <h3> No properties avaialable at the moment!</h3>
+            {% else %}
+            <div class="row justify-content-center">
+              <div class="col-lg-7 col-md-10 text-center">
+                <div class="sec-heading center mb-4">
+                  <h2>No Property Available</h2>
+                  <p>No properties available, We are trying to onboard this location as soon as possible.</p>
+                </div>
+              </div>
             </div>
 
           {% endif %}
