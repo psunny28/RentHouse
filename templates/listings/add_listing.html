@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load humanize %}
+{% block title %}Add Property{% endblock %}
+{% load bootstrap5 %}
+{% block content %}
+<!-- ============================ Page Title Start================================== -->
+			<div class="page-title">
+				<div class="container">
+					<div class="row">
+						<div class="col-lg-12 col-md-12">
+
+							<h2 class="ipt-title">Submit Property</h2>
+							<span class="ipn-subtitle">Just Submit Your Property</span>
+
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- ============================ Page Title End ================================== -->
+
+			<!-- ============================ Submit Property Start ================================== -->
+			<section class="gray-simple">
+					<form action="{% url 'add_listing' %}" method="post" enctype="multipart/form-data">
+						{% csrf_token %}
+
+						<div class="container">
+								<div class="row">
+									<div class="col-lg-12 col-md-12">
+
+            			{% include 'includes/alerts.html' %}
+
+									</div>
+
+									<!-- Submit Form -->
+									<div class="col-lg-12 col-md-12">
+
+										<div class="submit-page">
+
+											<!-- Basic Information -->
+											<div class="form-submit">
+
+													<h3>Basic Information</h3>
+													<div class="submit-section">
+														<div class="row">
+
+															<div class="form-group col-md-12">
+																	{% bootstrap_form form %}
+															</div>
+
+															{% buttons %}
+															    <button type="submit" class="btn btn-primary" style="border-radius:5px;">Submit</button>
+																	<button type="reset" class="btn btn-danger" style="background-color:red; border-radius:5px;">Reset</button>
+															 {% endbuttons %}
+														 </div>
+													</div>
+
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</form>
+			</section>
+			<!-- ============================ Submit Property End ================================== -->
+{% endblock %}

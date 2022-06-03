@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load humanize %}
+{% block title %}Dashboard | My Properties{% endblock %}
+{% block content %}
+<!-- ============================ Page Title Start================================== -->
+			<div class="page-title">
+				<div class="container">
+					<div class="row">
+						<div class="col-lg-12 col-md-12">
+
+							<h2 class="ipt-title">Your Properties</h2>
+							<span class="ipn-subtitle">You can see your all live properties here.</span>
+
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- ============================ Page Title End ================================== -->
+
+			<!-- ============================ User Dashboard ================================== -->
+			<section class="bg-light">
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col-lg-12 col-md-12">
+							<div class="filter_search_opt">
+								<a href="javascript:void(0);" onclick="openFilterSearch()">Dashboard Navigation<i class="ml-2 ti-menu"></i></a>
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+
+						{% include 'includes/dashboard_sidebar.html' %}
+
+						<div class="col-lg-9 col-md-12">
+							<div class="dashboard-wraper">
+
+								<!-- Bookmark Property -->
+								<div class="form-submit">
+									<h4>My Properties - ({{my_listing_count}})</h4>
+								</div>
+
+								<div class="row">
+									{% if my_listing %}
+									{% for listing in my_listing %}
+									<!-- Single Property -->
+									<div class="col-md-12 col-sm-12 col-md-12">
+										<div class="singles-dashboard-list">
+											<div class="sd-list-left">
+												<img src="{{listing.photo_main.url}}" class="img-fluid" alt="photo_main" />
+											</div>
+											<div class="sd-list-right">
+												<h4 class="listing_dashboard_title"><a href="{% url 'listing' listing.slug %}" class="theme-cl">{{listing.title}}</a></h4>
+												<div class="user_dashboard_listed">
+												<b><i class="lni-map-marker"></i> {{listing.address}} {{listing.city}} {{listing.pincode}} </b>
+												</div>
+												<div class="user_dashboard_listed">
+													Price: {{listing.price}}/ month and
+													Min Price: {{listing.min_price}}/Month
+												</div>
+												<div class="user_dashboard_listed">
+													Category: <a href="javascript:void(0);" class="theme-cl">{{listing.property_type}}</a> and <b>Listed on</b> <a href="javascript:void(0);" class="theme-cl">{{listing.list_date}}</a>
+												</div>
+												<div class="user_dashboard_listed">
+													City: <a href="javascript:void(0);" class="theme-cl">{{listing.city}}</a> , Area: {{listing.area_sqft_size}} sq ft
+												</div>
+												<!-- <div class="action">
+													<a href="#" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit"><i class="ti-pencil"></i></a>
+													<a href="#" data-bs-toggle="tooltip" data-bs-placement="top" title="202 User View"><i class="ti-eye"></i></a>
+													<a href="#" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete Property" class="delete"><i class="ti-close"></i></a>
+													<a href="#" data-bs-toggle="tooltip" data-bs-placement="top" title="Make Featured" class="delete"><i class="ti-star"></i></a>
+												</div> -->
+											</div>
+										</div>
+									</div>
+									{% endfor %}
+									{% endif %}
+								</div>
+
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</section>
+			<!-- ============================ User Dashboard End ================================== -->
+{% endblock %}

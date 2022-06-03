@@ -1,0 +1,168 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Property Booked Successfully | Rent House{% endblock %}
+{% block content %}
+
+
+<div class="page-title">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12 col-md-12">
+
+        <h2 class="ipt-title">Booking Confirmed</h2>
+        <span class="ipn-subtitle">Your booking has been confirmed</span>
+
+      </div>
+    </div>
+  </div>
+</div>
+<!-- ============================ Page Title End ================================== -->
+
+<!-- =================== Sidebar Search ==================== -->
+<section class="gray">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-12 form-submit">
+
+        <!-- 2st Step Checkout -->
+        <div class="checkout-wrap">
+
+          <div class="checkout-head">
+            <div class="success-message">
+              <span class="thumb-check"><i class="ti-check"></i></span>
+              <h4>Thank You, Your Booking Order Confirmed!</h4>
+              <p>A confirmation mail send to your email, Check your inbox.</p>
+            </div>
+          </div>
+
+          <div class="checkout-body">
+
+
+            <div class="row">
+              <div class="col-md-9 col-lg-12">
+
+                <ul class="booking-detail-list">
+                  <li>Booking ID/Num.<span>#BK1254872</span></li>
+                  <li>First Name<span>Shaurya</span></li>
+                  <li>Last Name<span>Preet</span></li>
+                  <li>Email<span>themezhub@gmail.com</span></li>
+                  <li>Phone<span>91 235 458 7458</span></li>
+                  <li>City<span>California</span></li>
+                  <li>Contry<span>United State</span></li>
+                  <li>Location<span>New Besil, Liverpool</span></li>
+                  <li>Zip<span>215467</span></li>
+                </ul>
+                <hr>
+
+                <h4>Payment Detail</h4>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit</p>
+
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- Sidebar End -->
+
+      <div class="col-lg-4 col-md-12">
+        <div class="checkout-side">
+
+          <div class="booking-short">
+            <img src="https://via.placeholder.com/1200x800" class="img-fluid" alt="" />
+            <h4>Manali To Paris, London</h4>
+            <span>Liverpool, London</span>
+          </div>
+
+          <div class="booking-short-side">
+            <div class="accordion" id="accordionExample">
+              <div class="card">
+                <div class="card-header" id="bookinDet">
+                  <h2 class="mb-0">
+                  <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#bookinSer" aria-expanded="true" aria-controls="bookinSer">
+                    Booking Detail
+                  </button>
+                  </h2>
+                </div>
+
+                <div id="bookinSer" class="collapse show" aria-labelledby="bookinDet" data-parent="#accordionExample">
+                  <div class="card-body">
+                    <ul class="booking-detail-list">
+                      <li>Check in date<span>03-05-2022</span></li>
+                      <li>Adults<span>4</span></li>
+                      <li>Children<span>3</span></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              <div class="card">
+                <div class="card-header" id="extraFeat">
+                  <h2 class="mb-0">
+                  <button class="btn btn-link" type="button" data-bs-toggle="collapse" data-bs-target="#extraSer" aria-expanded="false" aria-controls="extraSer">
+                    Extra Features
+                  </button>
+                  </h2>
+                </div>
+                <div id="extraSer" class="collapse" aria-labelledby="extraFeat" data-parent="#accordionExample">
+                  <div class="card-body">
+                    <ul class="booking-detail-list">
+                      <li>Breakfast</li>
+                      <li>Rooms Service</li>
+                      <li>Wifi Free</li>
+                      <li>Car Driving</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              <div class="card">
+                <div class="card-header" id="PayMents">
+                  <h2 class="mb-0">
+                  <button class="btn btn-link collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#payser" aria-expanded="false" aria-controls="payser">
+                    Payment
+                  </button>
+                  </h2>
+                </div>
+                <div id="payser" class="show" aria-labelledby="PayMents" data-parent="#accordionExample">
+                  <div class="card-body">
+                    <ul class="booking-detail-list">
+                      <li>Sub Total<span>$224</span></li>
+                      <li>Tax<span>$20</span></li>
+                      <li><b>Total Paid Ammount</b><span>$314</span></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              <!-- <div class="card">
+              <div class="card-header" id="CouponCode">
+                <h2 class="mb-0">
+                <button class="btn btn-link collapsed" type="button" data-bs-toggle="collapse" data-target="#couponcd" aria-expanded="false" aria-controls="couponcd">
+                  Coupon Code
+                </button>
+                </h2>
+              </div>
+              <div id="couponcd" class="collapse show" aria-labelledby="CouponCode" data-parent="#accordionExample">
+                <div class="card-body">
+                  <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Code">
+                    <button type="button" class="btn btn-black black full-width mt-2">Apply</button>
+                  </div>
+                </div>
+              </div>
+            </div> -->
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- =================== Sidebar Search ==================== -->
+{% endblock %}

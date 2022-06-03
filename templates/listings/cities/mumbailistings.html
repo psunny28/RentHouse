@@ -1,0 +1,240 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load humanize %}
+{% block title %}All Properties | Rent House{% endblock %}
+{% block content %}
+<!-- ============================ Hero Banner  Start================================== -->
+<!-- ============================ Page Title Start================================== -->
+<!-- <div class="page-title">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12 col-md-12">
+
+        <h2 class="ipt-title">Property List</h2>
+        <span class="ipn-subtitle">Property List With Sidebar</span>
+
+      </div>
+    </div>
+  </div>
+</div> -->
+<!-- ============================ Page Title End ==================================
+<!-- ============================ Hero Banner End ================================== -->
+<!-- This is search script -->
+<!-- ============================================================== -->
+
+<!-- ============================ All Property ================================== -->
+<section class="gray pt-5">
+  <div class="container">
+
+    <div class="row m-0">
+      <div class="short_wraping">
+        <div class="row align-items-center">
+
+          <div class="col-lg-2 col-md-6 col-sm-12  col-sm-6">
+            <ul class="shorting_grid">
+              <li class="list-inline-item"><a href="list-layout-with-sidebar.html" class="active"><span class="ti-view-list"></span>List</a></li>
+              <!-- <li class="list-inline-item"><a href="grid-layout-with-sidebar.html"><span class="ti-layout-grid2"></span>Grid</a></li> -->
+            </ul>
+          </div>
+
+          <div class="col-lg-7 col-md-12 col-sm-12 order-lg-2 order-md-3 elco_bor col-sm-12">
+            <div class="shorting_pagination">
+              <div class="shorting_pagination_laft">
+                <h5>Showing {{listing_count}} results</h5>
+              </div>
+              <!-- pagination -->
+              <!-- <div class="shorting_pagination_right">
+                <ul>
+                  <li><a href="javascript:void(0);" class="active">1</a></li>
+                  <li><a href="javascript:void(0);">2</a></li>
+                  <li><a href="javascript:void(0);">3</a></li>
+                  <li><a href="javascript:void(0);">4</a></li>
+                  <li><a href="javascript:void(0);">5</a></li>
+                  <li><a href="javascript:void(0);">6</a></li>
+                </ul>
+              </div> -->
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-6 col-sm-12 order-lg-3 order-md-2 col-sm-6">
+            <div class="shorting-right">
+              <label>Short By:</label>
+              <div class="dropdown show">
+                <button class="btn btn-filter dropdown-toggle" type="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                  <span class="selection">Most Rated</span>
+                </button>
+                <div class="drp-select dropdown-menu" aria-labelledby="dropdownMenuLink">
+                  <a class="dropdown-item" href="JavaScript:Void(0);">Most Rated</a>
+                  <a class="dropdown-item" href="JavaScript:Void(0);">Most Viewd</a>
+                  <a class="dropdown-item" href="JavaScript:Void(0);">News Listings</a>
+                  <a class="dropdown-item" href="JavaScript:Void(0);">High Rated</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-12 col-md-12">
+        <div class="filter_search_opt">
+          <a href="javascript:void(0);" onclick="openFilterSearch()">Search Property<i class="ml-2 ti-menu"></i></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-12 col-sm-12 list-layout">
+
+        <div class="row">
+          {% if listings %}
+            {% for listing in listings %}
+
+            <!-- Single Property -->
+            <div class="col-lg-6 col-md-12">
+              <div class="property-listing list_view style_new">
+
+                <div class="listing-img-wrapper">
+                  <div class="_exlio_125">{{listing.property_type}}</div>
+                  <!-- <div class="like_unlike_prt">
+                    <form action="index.html" method="post">
+                      <label class="toggler toggler-danger"><input type="checkbox"><i class="fa fa-heart"></i></label>
+                    </form>
+                  </div> -->
+                  <div class="list-img-slide">
+                    <div class="clior">
+                      <div><a href="{{listing.get_absolute_url}}" target="_blank"><img src="{{listing.photo_main.url}}" class="img-fluid mx-auto" alt="" /></a></div>
+                      <div><a href="{{listing.get_absolute_url}}" target="_blank"><img src="{{listing.first_room_photo.url}}" class="img-fluid mx-auto" alt="" /></a></div>
+                      <div><a href="{{listing.get_absolute_url}}" target="_blank"><img src="{{listing.front_home_photo.url}}" class="img-fluid mx-auto" alt="" /></a></div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="list_view_flex">
+
+                  <div class="listing-detail-wrapper mt-1">
+                    <div class="listing-short-detail-wrap">
+                      <div class="_card_list_flex mb-2">
+                        <div class="_card_flex_01">
+                          <span class="prt-types rent">For Rent</span>
+                          <span class="_list_blickes types">{{listing.available_for}}</span>
+                        </div>
+                        <div class="_card_flex_last">
+                          <h6 class="listing-card-info-price mb-0">₹{{listing.price | intcomma}}</h6>
+                        </div>
+                      </div>
+                      <div class="_card_list_flex">
+                        <div class="_card_flex_01">
+                          <h4 class="listing-name verified"><i class="ti-location-pin"></i> {{listing.address}}, {{listing.city}}, {{listing.state}}, {{listing.pincode}}</h4>
+                        </div>
+
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="price-features-wrapper">
+                    <div class="list-fx-features">
+                      <div class="listing-card-info-icon">
+                        <div class="inc-fleat-icon"><img src="{% static 'assets/img/bed.svg' %}" width="13" alt="" /></div>{{listing.bedroom}} Beds
+                      </div>
+                      <div class="listing-card-info-icon">
+                        <div class="inc-fleat-icon"><img src="{% static 'assets/img/bathtub.svg' %}" width="13" alt="" /></div>{{listing.bathroom}} Bath
+                      </div>
+                      <div class="listing-card-info-icon">
+                        <div class="inc-fleat-icon"><img src="{% static 'assets/img/move.svg' %}" width="13" alt="" /></div>{{listing.area_sqft_size}} sqft
+                      </div>
+                      <!-- <div class="foot-rates">
+                        <span class="elio_rate good">4.2</span>
+                        <div class="_rate_stio">
+                          <i class="fa fa-star"></i>
+                          <i class="fa fa-star"></i>
+                          <i class="fa fa-star"></i>
+                          <i class="fa fa-star"></i>
+                          <i class="fa fa-star"></i>
+                        </div>
+                      </div> -->
+                    </div>
+                  </div>
+
+                  <div class="listing-detail-footer pl-0">
+                      <div class="footer-first">
+                        <div class="foot-rates"><b><a>Listed:&nbsp;</a></b>
+                          <span class="elio_rate good">{{listing.list_date|timesince}} ago</span>
+                        </div>
+											</div>
+                    <div class="footer-flex">
+											<a href="{{listing.get_absolute_url}}" target="_blank" class="prt-view">View Property</a>
+										</div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+            <!-- End Single Property -->
+
+            {% endfor %}
+          {% else %}
+            <div class="col-ms-12">
+              <h3> No properties avaialable at the moment!</h3>
+            </div>
+
+          {% endif %}
+
+        </div>
+
+        <!-- Pagination -->
+        <div class="row">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            {% if listings.has_other_pages %}
+            <ul class="pagination p-center">
+              {% if listings.has_previous %}
+              <li class="page-item">
+                <a class="page-link" href="?page={{listings_previous_page_number}}" aria-label="Previous">
+                <span class="ti-arrow-left"></span>
+                <span class="sr-only">Previous</span>
+                </a>
+              </li>
+              {% else %}
+                <li class="page-item" disabled>
+                  <a class="page-link" aria-label="Previous">
+                  <span class="ti-arrow-left"></span>
+                  <span class="sr-only">Previous</span>
+                  </a>
+                </li>
+              {% endif %}
+              {% for i in listings.paginator.page_range %}
+                {% if listings == i %}
+                  <li class="page-item active"><a class="page-link">{{i}}</a></li>
+                {% else %}
+                <li class="page-item"><a class="page-link" href="?page={{i}}">{{i}}</a></li>
+                {% endif %}
+              {% endfor %}
+              {% if listings.has_next %}
+              <li class="page-item">
+                <a class="page-link" href="?page={{listings_next_page_number}}" aria-label="Next">
+                <span class="ti-arrow-right"></span>
+                <span class="sr-only">Next</span>
+                </a>
+              </li>
+              {% else %}
+                <li class="page-item" disabled>
+                  <a class="page-link" aria-label="Next">
+                  <span class="ti-arrow-right"></span>
+                  <span class="sr-only">Next</span>
+                  </a>
+                </li>
+              {% endif %}
+            </ul>
+            {% endif %}
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</section>
+
+{% endblock %}

@@ -1,0 +1,20 @@
+
+{% extends 'admin/base.html' %}
+{% load static %}
+
+
+{% block title %}{{ title }} | {{ site_title|default:_('Django site admin') }}{% endblock %}
+{% block extrahead %}
+    <link rel="icon" href="{% static 'assets/img/favicon.png' %}" sizes="48x48" />
+{% endblock %}
+{% block branding %}
+
+  <h1 id=head>
+    <img src="{% static 'assets/img/logo-light.png' %}" alt="Rent House Logo" height="30" width="auto" class="brand_img">
+  </h1>
+
+{% endblock %}
+
+{% block extrastyle %}
+  <link rel="stylesheet" href="{% static 'assets/css/admin.css' %}">
+{% endblock %}

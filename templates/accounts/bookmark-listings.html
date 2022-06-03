@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load humanize %}
+{% block title %}Favorites Properties{% endblock %}
+{% block content %}
+<!-- ============================ Page Title Start================================== -->
+<div class="page-title">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12 col-md-12">
+
+        <h2 class="ipt-title">Your Favorites Properties!</h2>
+        <!-- <span class="ipn-subtitle">Welcome To Your Account</span> -->
+
+      </div>
+    </div>
+  </div>
+</div>
+<!-- ============================ Page Title End ================================== -->
+
+<!-- ============================ User Dashboard ================================== -->
+<section class="bg-light">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-lg-12 col-md-12">
+        <div class="filter_search_opt">
+          <a href="javascript:void(0);" onclick="openFilterSearch()">Dashboard Navigation<i class="ml-2 ti-menu"></i></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      {% include 'includes/dashboard_sidebar.html' %}
+
+      <div class="col-lg-9 col-md-12">
+        <div class="dashboard-wraper">
+
+          <!-- Bookmark Property -->
+          <div class="form-submit">
+            <h4>Bookmark Property ({{favourites|length}})</h4>
+          </div>
+
+          <table class="property-table-wrap responsive-table bkmark">
+
+            <tbody>
+              <tr>
+                <th><i class="fas fa-heart"></i> Property</th>
+                <th></th>
+              </tr>
+              {% for favourite in favourites %}
+              <!-- Item #1 -->
+              <tr>
+                <td class="property-container">
+                  <img src="{{favourite.photo_main.url}}" alt="property_images">
+                  <div class="title">
+                    <h4><a href="{{favourite.get_absolute_url}}">{{favourite.title}}</a></h4>
+                    <span>{{favourite.address}}, {{favourite.city}}, {{favourite.state}}, {{favourite.pincde}} </span>
+                    <span class="table-property-price">₹ {{favourite.price}} / monthly</span>
+                    <b href="#">Property ID: {{favourite.id}}</b>
+                  </div>
+                </td>
+                <td class="action">
+                  <a href="#" class="delete"><i class="ti-close"></i> Remove Property</a>
+                </td>
+              </tr>
+              {% endfor %}
+
+            </tbody>
+          </table>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+<!-- ============================ User Dashboard End ================================== -->
+{% endblock %}

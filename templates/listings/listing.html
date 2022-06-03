@@ -1,0 +1,972 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load humanize %}
+{% block title %}{{listing.title}} | Single Property View{% endblock %}
+{% block content %}
+
+<!-- ============================ Hero Banner  Start================================== -->
+<div class="featured_slick_gallery gray">
+  <div class="featured_slick_gallery-slide">
+    <div class="featured_slick_padd"><a href="{{ listing.photo_main.url}} " class="mfp-gallery"><img src="{{ listing.photo_main.url}}" class="img-fluid mx-auto" alt="" /></a></div>
+    <div class="featured_slick_padd"><a href="{{listing.first_room_photo.url}}" class="mfp-gallery"><img src="{{listing.first_room_photo.url}}" class="img-fluid mx-auto" alt="" /></a></div>
+    {% if listing.second_room_photo %}
+    <div class="featured_slick_padd"><a href="{{listing.second_room_photo.url}}" class="mfp-gallery"><img src="{{listing.second_room_photo.url}}" class="img-fluid mx-auto" alt="" /></a></div>
+    {% endif %}
+    {% if listing.third_room_photo %}
+    <div class="featured_slick_padd"><a href="{{listing.third_room_photo.url}}" class="mfp-gallery"><img src="{{listing.third_room_photo.url}}" class="img-fluid mx-auto" alt="" /></a></div>
+    {% endif %}
+    <div class="featured_slick_padd"><a href="{{listing.front_home_photo.url}}" class="mfp-gallery"><img src="{{listing.front_home_photo.url}}" class="img-fluid mx-auto" alt="" /></a></div>
+    {% if listing.kitchen_photo %}
+    <div class="featured_slick_padd"><a href="{{listing.kitchen_photo.url}}" class="mfp-gallery"><img src="{{listing.kitchen_photo.url}}" class="img-fluid mx-auto" alt="" /></a></div>
+    {% endif %}
+    <div class="featured_slick_padd"><a href="{{listing.bathroom_photo.url}}" class="mfp-gallery"><img src="{{listing.bathroom_photo.url}}" class="img-fluid mx-auto" alt="" /></a></div>
+    {% if listing.roof_top %}
+    <div class="featured_slick_padd"><a href="{{listing.roof_top.url}}" class="mfp-gallery"><img src="{{listing.roof_top.url}}" class="img-fluid mx-auto" alt="" /></a></div>
+    {% endif %}
+  </div>
+  <a href="JavaScript:Void(0);" class="btn-view-pic">View photos</a>
+</div>
+<!-- ============================ Hero Banner End ================================== -->
+
+<!-- ============================ Property Detail Start ================================== -->
+<section class="gray-simple">
+  <div class="container">
+    <div class="row">
+      {% include 'includes/alerts.html' %}
+      <!-- property main detail -->
+      <div class="col-lg-8 col-md-12 col-sm-12">
+
+        <div class="property_block_wrap style-2 p-4">
+          <div class="prt-detail-title-desc">
+            <span class="prt-types rent">For Rent</span>
+            <span class="prt-types" style="color:blue; background:rgba(3, 169, 138,0.1);"><i class="fas fa-eye"></i> ({{listing.views}} views)</span>
+            <h3>{{listing.title}} <img src="{% static 'assets/img/veryfy.png' %}" width="25" alt="verified"></h3>
+            <span><i class="lni-map-marker"></i> {{listing.address}}, {{listing.city}}, {{listing.state}}, {{listing.pincode}}</span>
+            <h3 class="prt-price-fix">₹ {{listing.price | intcomma}}<sub>/month</sub></h3>
+            <div class="list-fx-features">
+              <div class="listing-card-info-icon">
+                <div class="inc-fleat-icon"><img src="{% static 'assets/img/bed.svg' %}" width="13" alt=""></div>{{listing.bedroom}} Beds
+              </div>
+              <div class="listing-card-info-icon">
+                <div class="inc-fleat-icon"><img src="{% static 'assets/img/bathtub.svg' %}" width="13" alt=""></div>{{listing.bathroom}} Bath
+              </div>
+              <div class="listing-card-info-icon">
+                <div class="inc-fleat-icon"><img src="{% static 'assets/img/move.svg' %}" width="13" alt=""></div>{{listing.area_sqft_size}} sqft
+              </div>
+            </div>
+          </div>
+          <div class="list-fx-features">
+            <div class="listing-card-info-icon">
+              <div class="deatil_features"><b>Property ID: </b> <span class="_list_blickes types" style='color:black;'>{{listing.id}}</span></div>
+            </div>
+            <div class="listing-card-info-icon">
+              <div class="deatil_features"><b>Property Listed:</b> <span class="_list_blickes types">{{listing.list_date}}</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Single Block Wrap -->
+        <div class="property_block_wrap style-2">
+
+          <div class="property_block_wrap_header">
+            <a data-bs-toggle="collapse" data-parent="#features" data-bs-target="#clOne" aria-controls="clOne" href="javascript:void(0);" aria-expanded="false"><h4 class="property_block_title">Detail & Features</h4></a>
+          </div>
+          <div id="clOne" class="panel-collapse collapse show" aria-labelledby="clOne">
+            <div class="block-body">
+              <ul class="deatil_features">
+                <li><strong>Property Type:</strong>{{listing.property_type}}</li>
+                <li><strong>Furnished Type:</strong>{{listing.furnished_type}}</li>
+                <li><strong>Available For:</strong>{{listing.available_for}}</li>
+                <li><strong>Kitchen Features:</strong>{{listing.kitchen}}</li>
+                <li><strong>Bedrooms:</strong>{{listing.bedroom}} Beds</li>
+                <li><strong>Bathrooms:</strong>{{listing.bathroom}} Bath</li>
+                <li><strong>Areas:</strong>{{listing.area_sqft_size}} sq ft</li>
+                <li><strong>Parking:</strong>{{listing.parking}}</li>
+                <li><strong>Property Age:</strong>{{listing.property_age}}</li>
+                <li><strong>Status:</strong>Active</li>
+                <li><strong>Floor:</strong>{{listing.floor}}</li>
+                <li><strong>Sharing:</strong>{{listing.sharing}}</li>
+                <li><strong>Security Amount:</strong>{{listing.security_amount}}</li>
+                <li><strong>Internet Facility:</strong>{{listing.internet}}</li>
+
+              </ul>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Single Block Wrap -->
+        <div class="property_block_wrap style-2">
+
+          <div class="property_block_wrap_header">
+            <a data-bs-toggle="collapse" data-parent="#dsrp" data-bs-target="#clTwo" aria-controls="clTwo" href="javascript:void(0);" aria-expanded="true"><h4 class="property_block_title">Description</h4></a>
+          </div>
+          <div id="clTwo" class="panel-collapse collapse show">
+            <div class="block-body">
+              <p>{{listing.description}}</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Single Block Wrap -->
+        <div class="property_block_wrap style-2">
+
+          <div class="property_block_wrap_header">
+            <a data-bs-toggle="collapse" data-parent="#amen"  data-bs-target="#clThree" aria-controls="clThree" href="javascript:void(0);" aria-expanded="true"><h4 class="property_block_title">Ameneties</h4></a>
+          </div>
+
+          <div id="clThree" class="panel-collapse collapse show">
+            <div class="block-body">
+              <ul class="avl-features third color">
+                {% if listing.ameneties.0 %}
+                <li>{{listing.ameneties.0}}</li>
+                {% endif %}
+                {% if listing.ameneties.1 %}
+                <li>{{listing.ameneties.1}}</li>
+                {% endif %}
+                {% if listing.ameneties.2 %}
+                <li>{{listing.ameneties.2}}</li>
+                {% endif %}
+                {% if listing.ameneties.3 %}
+                <li>{{listing.ameneties.3}}</li>
+                {% endif %}
+                {% if listing.ameneties.4 %}
+                <li>{{listing.ameneties.4}}</li>
+                {% endif %}
+                {% if listing.ameneties.5 %}
+                <li>{{listing.ameneties.5}}</li>
+                {% endif %}
+                {% if listing.ameneties.6 %}
+                <li>{{listing.ameneties.6}}</li>
+                {% endif %}
+                {% if listing.ameneties.7 %}
+                <li>{{listing.ameneties.7}}</li>
+                {% endif %}
+                {% if listing.ameneties.8 %}
+                <li>{{listing.ameneties.8}}</li>
+                {% endif %}
+                {% if listing.ameneties.9 %}
+                <li>{{listing.ameneties.9}}</li>
+                {% endif %}
+                {% if listing.ameneties.10 %}
+                <li>{{listing.ameneties.10}}</li>
+                {% endif %}
+                {% if listing.ameneties.11 %}
+                <li>{{listing.ameneties.11}}</li>
+                {% endif %}
+                {% if listing.ameneties.12 %}
+                <li>{{listing.ameneties.12}}</li>
+                {% endif %}
+                {% if listing.ameneties.13 %}
+                <li>{{listing.ameneties.13}}</li>
+                {% endif %}
+                {% if listing.ameneties.14 %}
+                <li>{{listing.ameneties.14}}</li>
+                {% endif %}
+                {% if listing.ameneties.15 %}
+                <li>{{listing.ameneties.15}}</li>
+                {% endif %}
+                {% if listing.ameneties.16 %}
+                <li>{{listing.ameneties.16}}</li>
+                {% endif %}
+                {% if listing.ameneties.17 %}
+                <li>{{listing.ameneties.17}}</li>
+                {% endif %}
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Single Block Wrap -->
+        <div class="property_block_wrap style-2">
+          {% if listing.property_video %}
+          <div class="property_block_wrap_header">
+            <a data-bs-toggle="collapse" data-parent="#vid"  data-bs-target="#clFour" aria-controls="clFour" href="javascript:void(0);" aria-expanded="true" class="collapsed"><h4 class="property_block_title">Property video</h4></a>
+          </div>
+          <div id="clFour" class="panel-collapse show">
+            <div class="block-body">
+              <div class="property_video">
+                <div class="thumb">
+                  <img class="pro_img img-fluid w100" src="{{listing.photo_main.url}}" alt="pl-5.jpg">
+                  <div class="overlay_icon">
+                    <div class="bb-video-box">
+                      <div class="bb-video-box-inner">
+                        <div class="bb-video-box-innerup">
+                          <a href="#" data-bs-toggle="modal" data-bs-target="#popup-video" class="theme-cl"><i class="ti-control-play"></i></a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          {% endif %}
+
+        </div>
+
+        <!-- Single Block Wrap -->
+        {% if property_gallery %}
+        <div class="property_block_wrap style-2">
+          <div class="property_block_wrap_header">
+            <a data-bs-toggle="collapse" data-parent="#clSev"  data-bs-target="#clSev" aria-controls="clOne" href="javascript:void(0);" aria-expanded="true" class="collapsed"><h4 class="property_block_title">Gallery Images</h4></a>
+          </div>
+
+          <div id="clSev" class="panel-collapse show">
+            <div class="block-body">
+              <ul class="list-gallery-inline">
+                {% for i in property_gallery %}
+                <li><a href="{{i.image.url}}" class="mfp-gallery"><img src="{{i.image.url}}" class="img-fluid mx-auto" alt="gallery-images" /></a></li>
+                {% endfor %}
+              </ul>
+            </div>
+          </div>
+
+        </div>
+        {% endif %}
+
+        <!-- Single Block Wrap -->
+        <!-- <div class="property_block_wrap style-2">
+
+          <div class="property_block_wrap_header">
+            <a data-bs-toggle="collapse" data-parent="#floor"  data-bs-target="#clFive" aria-controls="clFive" href="javascript:void(0);" aria-expanded="true" class="collapsed"><h4 class="property_block_title">Floor Plan</h4></a>
+          </div>
+
+          <div id="clFive" class="panel-collapse collapse">
+            <div class="block-body">
+              <div class="accordion" id="floor-option">
+                <div class="card">
+                  <div class="card-header" id="firstFloor">
+                    <h2 class="mb-0">
+                      <button type="button" class="btn btn-link" data-bs-toggle="collapse" data-bs-target="#firstfloor" aria-controls="firstfloor">First Floor<span>740 sq ft</span></button>
+                    </h2>
+                  </div>
+                  <div id="firstfloor" class="collapse" aria-labelledby="firstFloor" data-parent="#floor-option">
+                    <div class="card-body">
+                      <img src="assets/img/floor.jpg" class="img-fluid" alt="" />
+                    </div>
+                  </div>
+                </div>
+                <div class="card">
+                  <div class="card-header" id="seconfFloor">
+                    <h2 class="mb-0">
+                      <button type="button" class="btn btn-link collapsed" data-bs-toggle="collapse" data-bs-target="#secondfloor" aria-controls="secondfloor">Second Floor<span>710 sq ft</span></button>
+                    </h2>
+                  </div>
+                  <div id="secondfloor" class="collapse" aria-labelledby="seconfFloor" data-parent="#floor-option">
+                    <div class="card-body">
+                      <img src="assets/img/floor.jpg" class="img-fluid" alt="" />
+                    </div>
+                  </div>
+                </div>
+                <div class="card">
+                  <div class="card-header" id="third-garage">
+                    <h2 class="mb-0">
+                      <button type="button" class="btn btn-link collapsed" data-bs-toggle="collapse" data-bs-target="#garages" aria-controls="garages">Garage<span>520 sq ft</span></button>
+                    </h2>
+                  </div>
+                  <div id="garages" class="collapse" aria-labelledby="third-garage" data-parent="#floor-option">
+                    <div class="card-body">
+                      <img src="assets/img/floor.jpg" class="img-fluid" alt="" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div> -->
+
+        <!-- Single Block Wrap -->
+        <div class="property_block_wrap style-2">
+
+          <div class="property_block_wrap_header">
+            <a data-bs-toggle="collapse" data-parent="#loca"  data-bs-target="#clSix" aria-controls="clSix" href="javascript:void(0);" aria-expanded="true" class="collapsed"><h4 class="property_block_title">Location</h4></a>
+          </div>
+
+          <div id="clSix" class="panel-collapse show">
+            <div class="block-body">
+              <div class="hm-map-container">
+                <div id="singleMap" data-latitude="40.7427837" data-longitude="-73.11445617675781" data-mapTitle="Our Location">
+                  <p><b>Note:</b> This location is based on google map and latitute and longitute of the location.</p>
+                  <iframe width="100%" height="450px" frameborder="0" style="border:0" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps/embed/v1/place?key=AIzaSyBN4zFLiJc5xancNw3brs_tmy2eM_47MkE&zoom=16&q={{listing.location}}"allowfullscreen></iframe>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- All over Review -->
+        <!-- <div class="rating-overview">
+          <div class="rating-overview-box">
+            <span class="rating-overview-box-total">4.2</span>
+            <span class="rating-overview-box-percent">out of 5.0</span>
+            <div class="star-rating" data-rating="5"><i class="ti-star"></i><i class="ti-star"></i><i class="ti-star"></i><i class="ti-star"></i><i class="ti-star"></i>
+            </div>
+          </div>
+
+          <div class="rating-bars">
+              <div class="rating-bars-item">
+                <span class="rating-bars-name">Service</span>
+                <span class="rating-bars-inner">
+                  <span class="rating-bars-rating high" data-rating="4.7">
+                    <span class="rating-bars-rating-inner" style="width: 85%;"></span>
+                  </span>
+                  <strong>4.7</strong>
+                </span>
+              </div>
+              <div class="rating-bars-item">
+                <span class="rating-bars-name">Value for Money</span>
+                <span class="rating-bars-inner">
+                  <span class="rating-bars-rating good" data-rating="3.9">
+                    <span class="rating-bars-rating-inner" style="width: 75%;"></span>
+                  </span>
+                  <strong>3.9</strong>
+                </span>
+              </div>
+              <div class="rating-bars-item">
+                <span class="rating-bars-name">Location</span>
+                <span class="rating-bars-inner">
+                  <span class="rating-bars-rating mid" data-rating="3.2">
+                    <span class="rating-bars-rating-inner" style="width: 52.2%;"></span>
+                  </span>
+                  <strong>3.2</strong>
+                </span>
+              </div>
+              <div class="rating-bars-item">
+                <span class="rating-bars-name">Cleanliness</span>
+                <span class="rating-bars-inner">
+                  <span class="rating-bars-rating poor" data-rating="2.0">
+                    <span class="rating-bars-rating-inner" style="width:20%;"></span>
+                  </span>
+                  <strong>2.0</strong>
+                </span>
+              </div>
+          </div>
+        </div> -->
+        <!-- All over Review -->
+
+        <!-- Single Reviews Block -->
+        <!-- <div class="property_block_wrap style-2">
+
+          <div class="property_block_wrap_header">
+            <a data-bs-toggle="collapse" data-parent="#rev"  data-bs-target="#clEight" aria-controls="clEight" href="javascript:void(0);" aria-expanded="true"><h4 class="property_block_title">102 Reviews</h4></a>
+          </div>
+
+          <div id="clEight" class="panel-collapse collapse show">
+            <div class="block-body">
+              <div class="author-review">
+                <div class="comment-list">
+                  <ul>
+                    <li class="article_comments_wrap">
+                      <article>
+                        <div class="article_comments_thumb">
+                          <img src="{% static 'assets/img/user-3.jpg' %}" alt="">
+                        </div>
+                        <div class="comment-details">
+                          <div class="comment-meta">
+                            <div class="comment-left-meta">
+                              <h4 class="author-name">Rosalina Kelian</h4>
+                              <div class="comment-date">19th May 2018</div>
+                            </div>
+                          </div>
+                          <div class="comment-text">
+                            <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim laborumab.
+                              perspiciatis unde omnis iste natus error.</p>
+                          </div>
+                        </div>
+                      </article>
+                    </li>
+                    <li class="article_comments_wrap">
+                      <article>
+                        <div class="article_comments_thumb">
+                          <img src="{% static 'assets/img/user.svg' %}" alt="">
+                        </div>
+                        <div class="comment-details">
+                          <div class="comment-meta">
+                            <div class="comment-left-meta">
+                              <h4 class="author-name">Rosalina Kelian</h4>
+                              <div class="comment-date">19th May 2018</div>
+                            </div>
+                          </div>
+                          <div class="comment-text">
+                            <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim laborumab.
+                              perspiciatis unde omnis iste natus error.</p>
+                          </div>
+                        </div>
+                      </article>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <a href="#" class="reviews-checked theme-cl"><i class="fas fa-arrow-alt-circle-down mr-2"></i>See More Reviews</a>
+            </div>
+          </div>
+
+        </div> -->
+
+        <!-- Single Block Wrap -->
+        <!-- <div class="property_block_wrap style-2">
+
+          <div class="property_block_wrap_header">
+            <a data-bs-toggle="collapse" data-parent="#nearby" data-bs-target="#clNine" aria-controls="clNine" href="javascript:void(0);" aria-expanded="true"><h4 class="property_block_title">Nearby</h4></a>
+          </div>
+
+          <div id="clNine" class="panel-collapse collapse show">
+            <div class="block-body">
+
+              Schools
+              <div class="nearby-wrap">
+                <div class="nearby_header">
+                  <div class="nearby_header_first">
+                    <h5>Schools Around</h5>
+                  </div>
+                  <div class="nearby_header_last">
+                    <div class="nearby_powerd">
+                      Powerd by <img src="assets/img/edu.png" class="img-fluid" alt="" />
+                    </div>
+                  </div>
+                </div>
+                <div class="neary_section_list">
+
+                  <div class="neary_section">
+                    <div class="neary_section_first">
+                      <h4 class="nearby_place_title">Green Iseland School<small>(3.52 mi)</small></h4>
+                    </div>
+                    <div class="neary_section_last">
+                      <div class="nearby_place_rate">
+                        <i class="fa fa-star filled"></i>
+                        <i class="fa fa-star filled"></i>
+                        <i class="fa fa-star filled"></i>
+                        <i class="fa fa-star filled"></i>
+                        <i class="fa fa-star"></i>
+                      </div>
+                      <small class="reviews-count">(421 Reviews)</small>
+                    </div>
+                  </div>
+
+                  <div class="neary_section">
+                    <div class="neary_section_first">
+                      <h4 class="nearby_place_title">Ragni Intermediate College<small>(0.52 mi)</small></h4>
+                    </div>
+                    <div class="neary_section_last">
+                      <div class="nearby_place_rate">
+                        <i class="fa fa-star filled"></i>
+                        <i class="fa fa-star filled"></i>
+                        <i class="fa fa-star filled"></i>
+                        <i class="fa fa-star filled"></i>
+                        <i class="fa fa-star-half filled"></i>
+                      </div>
+                      <small class="reviews-count">(470 Reviews)</small>
+                    </div>
+                  </div>
+
+                  <div class="neary_section">
+                    <div class="neary_section_first">
+                      <h4 class="nearby_place_title">Rose Wood Primary Scool<small>(0.47 mi)</small></h4>
+                    </div>
+                    <div class="neary_section_last">
+                      <div class="nearby_place_rate">
+                        <i class="fa fa-star filled"></i>
+                        <i class="fa fa-star filled"></i>
+                        <i class="fa fa-star filled"></i>
+                        <i class="fa fa-star filled"></i>
+                        <i class="fa fa-star"></i>
+                      </div>
+                      <small class="reviews-count">(204 Reviews)</small>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+
+              Hotel & Restaurant
+              <div class="nearby-wrap">
+                <div class="nearby_header">
+                  <div class="nearby_header_first">
+                    <h5>Food Around</h5>
+                  </div>
+                  <div class="nearby_header_last">
+                    <div class="nearby_powerd">
+                      Powerd by <img src="assets/img/food.png" class="img-fluid" alt="" />
+                    </div>
+                  </div>
+                </div>
+                <div class="neary_section_list">
+
+                  <div class="neary_section">
+                    <div class="neary_section_first">
+                      <h4 class="nearby_place_title">The Rise hotel<small>(2.42 mi)</small></h4>
+                    </div>
+                    <div class="neary_section_last">
+                      <div class="nearby_place_rate">
+                        <i class="fa fa-star filled"></i>
+                        <i class="fa fa-star filled"></i>
+                        <i class="fa fa-star filled"></i>
+                        <i class="fa fa-star filled"></i>
+                        <i class="fa fa-star filled"></i>
+                      </div>
+                      <small class="reviews-count">(105 Reviews)</small>
+                    </div>
+                  </div>
+
+                  <div class="neary_section">
+                    <div class="neary_section_first">
+                      <h4 class="nearby_place_title">Blue Ocean Bar & Restaurant<small>(1.52 mi)</small></h4>
+                    </div>
+                    <div class="neary_section_last">
+                      <div class="nearby_place_rate">
+                        <i class="fa fa-star filled"></i>
+                        <i class="fa fa-star filled"></i>
+                        <i class="fa fa-star filled"></i>
+                        <i class="fa fa-star filled"></i>
+                        <i class="fa fa-star"></i>
+                      </div>
+                      <small class="reviews-count">(40 Reviews)</small>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </div> -->
+
+        <!-- Single Write a Review -->
+        <!-- <div class="property_block_wrap style-2">
+
+          <div class="property_block_wrap_header">
+            <a data-bs-toggle="collapse" data-parent="#comment" data-bs-target="#clTen" aria-controls="clTen" href="javascript:void(0);" aria-expanded="true"><h4 class="property_block_title">Write a Review</h4></a>
+          </div>
+
+          <div id="clTen" class="panel-collapse collapse show">
+            <div class="block-body">
+              <form class="simple-form">
+                <div class="row">
+
+                  <div class="col-lg-12 col-md-12 col-sm-12">
+                    <div class="form-group">
+                      <textarea class="form-control ht-80" placeholder="Messages"></textarea>
+                    </div>
+                  </div>
+
+                  <div class="col-lg-12 col-md-12 col-sm-12">
+                    <div class="form-group">
+                      <input type="text" class="form-control" placeholder="Property Title">
+                    </div>
+                  </div>
+
+                  <div class="col-lg-6 col-md-6 col-sm-12">
+                    <div class="form-group">
+                      <input type="text" class="form-control" placeholder="Your Name">
+                    </div>
+                  </div>
+
+                  <div class="col-lg-6 col-md-6 col-sm-12">
+                    <div class="form-group">
+                      <input type="email" class="form-control" placeholder="Your Email">
+                    </div>
+                  </div>
+
+                  <div class="col-lg-12 col-md-12 col-sm-12">
+                    <div class="form-group">
+                      <button class="btn btn-theme-light-2 rounded" type="submit">Submit Review</button>
+                    </div>
+                  </div>
+
+                </div>
+              </form>
+            </div>
+          </div>
+
+        </div> -->
+
+      </div>
+
+      <!-- property Sidebar -->
+      <div class="col-lg-4 col-md-12 col-sm-12">
+
+        <!-- Like And Share -->
+					<div class="like_share_wrap b-0">
+						<ul class="like_share_list">
+							<li><a href="#" class="btn btn-likes" data-toggle="tooltip" data-original-title="Share"><i class="fas fa-share"></i>Share</a></li>
+              {% if is_favourites %}
+							<li><a href="{% url 'add_favourite' listing.id %}" class="btn btn-likes" data-toggle="tooltip" data-original-title="remove"><i class="fas fa-heart"></i>Remove</a></li>
+              {% else %}
+              <li><a href="{% url 'add_favourite' listing.id %}" class="btn btn-likes" data-toggle="tooltip" data-original-title="Save"><i class="fa fa-heart-o"></i>Save</a></li>
+              {% endif %}
+						</ul>
+					</div>
+
+          <!-- Agent details Start -->
+          {% if listing.agent %}
+          <div class="single-team">
+            <h4>Property Post By</h4>
+  					<div class="team-grid" style="padding-top:40px; padding-bottom:2px;">
+
+  						<div class="teamgrid-user">
+  							<img src="{{listing.agent.photo.url}}" alt="Agent photo" class="img-fluid"/>
+  						</div>
+
+  						<div class="teamgrid-content">
+  							<a href="{% url 'single_agent' listing.agent.id %}"><h4>{{listing.agent.name}}</h4></a>
+  							<span>{{listing.agent.designation}}</span><br>
+                {% if user.is_authenticated %}
+                <a href="#" class="f-cl"><i class="lni-phone-handset"></i> {{listing.agent.phone}}</a><br>
+                <b><a href="#" class="l-cl"><i class="fa fa-envelope"></i> {{listing.agent.email}}</a></b>
+                {% endif %}
+  						</div>
+              <div class="sides-widget-body simple-form">
+              <button data-bs-toggle="modal" data-bs-target="#availability" class="btn btn-black btn-md full-width">Make an Inquiry</button>
+              </div>
+  					</div>
+  				</div>
+          {% else %}
+          <!-- Agent not Available -->
+          <div class="sides-widget">
+            <div class="sides-widget-header">
+              <div class="sides-widget-details">
+                <h4>Please Make an Inquiry</h4>
+              </div>
+              <div class="clearfix"></div>
+            </div>
+            <div class="sides-widget-body simple-form">
+              <div class="form-group">
+                <label>Email</label>
+                <input type="text" class="form-control" placeholder="Your Email">
+              </div>
+              <div class="form-group">
+                <label>Phone No.</label>
+                <input type="text" class="form-control" placeholder="Your Phone">
+              </div>
+              <div class="form-group">
+                <label>Description</label>
+                <textarea class="form-control">I'm interested in this property.</textarea>
+              </div>
+              <button class="btn btn-black btn-md rounded full-width">Send Message</button>
+            </div>
+          </div>
+          {% endif %}
+          <!-- Agent details end -->
+
+          <!-- Property Owner Details -->
+
+          <div class="single-team">
+            <h4>Property Owner Deatils</h4>
+						<div class="team-grid" style="padding-top:40px; padding-bottom:20px;">
+
+							<div class="teamgrid-user">
+								<img src="{{listing.owner_photo.url}}" alt="" class="img-fluid" />
+							</div>
+							<div class="teamgrid-content">
+								<h4>{{listing.owner_name}}</h4>
+                {% if user.is_authenticated %}
+								<span><a href="#" class="f-cl"><i class="lni-phone-handset"> </i> {{listing.owner_phone}}</a></span><br>
+                {% if listing.owner_secondary_phone %}
+                <span><a href="#" class="f-cl"><i class="lni-phone-handset"> </i> {{listing.owner_secondary_phone}}</a></span><br>
+                {% endif %}
+                <b><a href="#" class="t-cl" style="color:black;"><i class="fa fa-envelope"> </i> {{listing.owner_email}}</a></b>
+                {% else %}
+                <span><b><a href="{{listing.get_absolute_url}}">Please login to get details.</a></b></span><br>
+                {% endif %}
+							</div>
+						</div>
+					</div>
+
+          <div class="like_share_wrap b-0">
+            <p style='color:red;'> <b>Note: </b>Booking facility is coming soon, However, you can make appointments with property owners.</p>
+          </div>
+
+        <div class="property-sidebar side_stiky">
+          <div class="sider_blocks_wrap shadows">
+            <div class="side-booking-header">
+              <ul class="nav nav-pills sider_tab" id="pills-tab" role="tablist">
+                <li class="nav-item">
+                <a class="nav-link disabled" id="pills-book-tab" data-bs-toggle="pill" href="#pills-book" role="tab" aria-controls="pills-home" aria-selected="true">Book Now</a>
+                </li>
+                <li class="nav-item">
+                <a class="nav-link active" id="pills-appointment-tab" data-bs-toggle="pill" href="#pills-appointment" role="tab" aria-controls="pills-appointment" aria-selected="false">Appointment</a>
+                </li>
+              </ul>
+            </div>
+            <div class="sidetab-content">
+              <div class="tab-content" id="pills-tabContent">
+                <!-- Book Now Tab -->
+											<div class="tab-pane fade disabled" id="pills-book" role="tabpanel" aria-labelledby="pills-book-tab">
+												<div class="side-booking-body">
+													<div class="row">
+
+														<div class="col-lg-6 col-md-6 col-sm-6 col-6">
+															<div class="form-group">
+																<label for="guests">Check In</label>
+																<div class="cld-box">
+																	<i class="ti-calendar"></i>
+																	<input type="text" name="checkin" class="form-control" value="" />
+																</div>
+															</div>
+														</div>
+														<div class="col-lg-6 col-md-6 col-sm-6 col-6">
+															<div class="form-group">
+																<label for="guests">Check Out</label>
+																<div class="cld-box">
+																	<i class="ti-calendar"></i>
+																	<input type="text" name="checkout" class="form-control" value="" />
+																</div>
+															</div>
+														</div>
+														<div class="col-lg-6 col-md-6 col-sm-6 col-6">
+															<div class="form-group">
+																<div class="guests">
+																  <label for="guests">Adults</label>
+																  <div class="guests-box">
+																	  <button class="counter-btn" type="button" id="cnt-down"><i class="ti-minus"></i></button>
+																	  <input type="text" id="guestNo" name="guests" value="2"/>
+																	  <button class="counter-btn" type="button" id="cnt-up"><i class="ti-plus"></i></button>
+																  </div>
+																</div>
+															</div>
+														</div>
+														<div class="col-lg-6 col-md-6 col-sm-6 col-6">
+															<div class="form-group">
+																<div class="guests">
+																  <label for="guests">Kids</label>
+																  <div class="guests-box">
+																	  <button class="counter-btn" type="button" id="kcnt-down"><i class="ti-minus"></i></button>
+																	  <input type="text" id="kidsNo" name="kids" value="0"/>
+																	  <button class="counter-btn" type="button" id="kcnt-up"><i class="ti-plus"></i></button>
+																  </div>
+																</div>
+															</div>
+														</div>
+
+														<!-- <div class="col-lg-12 col-md-12 col-sm-12 mt-3">
+															<label for="guests">Advance features</label>
+															<div class="_adv_features_list">
+																<ul class="no-ul-list">
+																	<li>
+																		<input id="a-1" class="checkbox-custom" name="a-1" type="checkbox">
+																		<label for="a-1" class="checkbox-custom-label">Air Condition<i>$10</i></label>
+																	</li>
+																	<li>
+																		<input id="a-2" class="checkbox-custom" name="a-2" type="checkbox" checked>
+																		<label for="a-2" class="checkbox-custom-label">Bedding<i>$07</i></label>
+																	</li>
+																	<li>
+																		<input id="a-3" class="checkbox-custom" name="a-3" type="checkbox" checked>
+																		<label for="a-3" class="checkbox-custom-label">Heating<i>$20</i></label>
+																	</li>
+																	<li>
+																		<input id="a-4" class="checkbox-custom" name="a-4" type="checkbox">
+																		<label for="a-4" class="checkbox-custom-label">Internet<i>$10</i></label>
+																	</li>
+																	<li>
+																		<input id="a-5" class="checkbox-custom" name="a-5" type="checkbox">
+																		<label for="a-5" class="checkbox-custom-label">Microwave<i>$05</i></label>
+																	</li>
+																</ul>
+															</div>
+														</div> -->
+
+														<!-- <div class="col-lg-12 col-md-12 col-sm-12 mt-3">
+															<label for="guests">Price & Tax</label>
+															<div class="_adv_features">
+																<ul>
+																	<li>Discount 25₹<span>-₹250</span></li>
+																	<li>Service Fee<span>₹17</span></li>
+																</ul>
+															</div>
+														</div> -->
+
+														<div class="col-lg-12 col-md-12 col-sm-12">
+															<div class="side-booking-foot">
+																<span class="sb-header-left">Payment</span>
+																<h3 class="price theme-cl">₹ {{listing.price}}</h3>
+															</div>
+														</div>
+														<div class="col-lg-12 col-md-12 col-sm-12">
+															<div class="stbooking-footer mt-1">
+																<div class="form-group mb-0 pb-0">
+																	<a href="{% url 'book_now' %}" class="btn book_btn theme-bg text-light">Book It Now</a>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+
+                <!-- Appointment Now Tab -->
+                <div class="tab-pane show active" id="pills-appointment" role="tabpanel" aria-labelledby="pills-appointment-tab">
+                  <div class="sider-block-body p-3">
+                    <div class="row">
+                    <form action="{% url 'appointment' %}" method="post">
+                      <div class="col-lg-12 col-md-12 col-sm-12">
+                        <input type="hidden" name="agent_email" class="form-control" value="{{listing.agent.email}}">
+                        <input type="hidden" name="owner_email" class="form-control" value="{{listing.owner_email}}">
+                        <input type="hidden" name="listing_id" class="form-control" value="{{listing.id}}">
+                        <input type="hidden" name="city" class="form-control" value="{{listing.city}}">
+                        <input type="hidden" name="pincode" class="form-control" value="{{listing.pincode}}">
+                        <input type="hidden" name="listing" class="form-control" value="{{listing.title}}">
+                      {% csrf_token %}
+                      {% if user.is_authenticated %}
+                      <input type="hidden" name="user_id" class="form-control" value="{{user.id}}">
+                      {% else %}
+                      <input type="hidden" name="user_id" class="form-control" value="0">
+                      {% endif %}
+                        <div class="form-group">
+                          <label>Full Name</label>
+                          <input type="text" class="form-control light" name="name" {% if user.is_authenticated %} value="{{user.first_name}} {{user.last_name}}"{% endif %} placeholder="Enter Name">
+                        </div>
+                      </div>
+                      <div class="col-lg-12 col-md-12 col-sm-12">
+                        <div class="form-group">
+                          <label>Email ID</label>
+                          <input type="text" class="form-control light" name="email" {% if user.is_authenticated %} value="{{user.email}}"{% endif %} placeholder="Enter eMail ID">
+                        </div>
+                      </div>
+                      <div class="col-lg-12 col-md-12 col-sm-12">
+                        <div class="form-group">
+                          <label>Contact Number</label>
+                          <input type="text" class="form-control light" name="phone" {% if user.is_authenticated %} value="{{user.phone_number}}"{% endif %} placeholder="Enter phone number" >
+                        </div>
+                      </div>
+                      <div class="col-lg-12 col-md-12 col-sm-12">
+                        <div class="form-group">
+                          <label>Appointment Date and Time</label>
+                          <input type="datetime-local" class="form-control light" name="appointment_date" placeholder="Enter Phone No." required>
+                        </div>
+                      </div>
+                      <div class="col-lg-12 col-md-12 col-sm-12">
+                        <div class="form-group">
+                          <label>Message</label>
+                          <textarea class="form-control light" name="message" placeholder="Explain Query"></textarea>
+                        </div>
+                      </div>
+                      <div class="col-lg-12 col-md-12 col-sm-12">
+                        <div class="form-group">
+                          <button type="submit" class="btn book_btn theme-bg">Make Appointment</button>
+                        </div>
+                      </div>
+                      </form>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+<!-- Display on mobile -->
+<div class="dismob_block d-block d-sm-none">
+  <div class="dismob_block_left">
+    <a href="#" class="edlio_btn_block" data-bs-toggle="modal" data-bs-target="#availability"><i class="fa fa-envelope"></i>Contact</a>
+  </div>
+  <div class="dismob_block_left">
+    <a href="#" class="edlio_btn_block light" data-bs-toggle="modal" data-bs-target="#autho-message"><i class="ti-calendar"></i>Book A Tour</a>
+  </div>
+</div>
+
+<!-- Contact -->
+<div class="modal fade" id="availability" tabindex="-1" role="dialog" aria-labelledby="sign-up" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered login-pop-form" role="document">
+    <div class="modal-content" id="sign-up">
+      <span class="mod-close" data-bs-dismiss="modal" aria-hidden="true"><i class="ti-close"></i></span>
+      <div class="modal-body">
+        <div class="text-center">
+          <h2 class="mb-0">Contact</h2>
+          <h4 class="mb-0">{{listing.title}}</h4>
+          <a class="_calss_tyui">({{listing.address}}, {{listing.city}}, {{listing.state}}, {{listing.pincode}})</a>
+        </div>
+        <div class="login-form">
+          <form action="{% url 'contact' %}" method="POST">
+            {% csrf_token %}
+            {% if user.is_authenticated %}
+            <input type="hidden" name="user_id" class="form-control" value="{{user.id}}">
+            {% else %}
+            <input type="hidden" name="user_id" class="form-control" value="0">
+            {% endif %}
+            <input type="hidden" name="agent_email" class="form-control" value="{{listing.agent.email}}">
+            <input type="hidden" name="listing_id" class="form-control" value="{{listing.id}}">
+            <input type="hidden" name="city" class="form-control" value="{{listing.city}}">
+            <input type="hidden" name="pincode" class="form-control" value="{{listing.pincode}}">
+            <div class="row">
+
+              <div class="col-lg-12 col-md-12">
+                <div class="form-group">
+                  <input type="hidden" name="listing" class="form-control" value="{{listing.title}}">
+                </div>
+              </div>
+
+
+              <div class="col-lg-12 col-md-12">
+                <div class="form-group">
+                  <label>Name*</label>
+                  <input type="text" name="name" class="form-control" {% if user.is_authenticated %} value="{{user.first_name}} {{user.last_name}}" {% endif %}>
+                </div>
+              </div>
+
+              <div class="col-lg-12 col-md-12">
+                <div class="form-group">
+                  <label>Email*</label>
+                  <input type="email" name="email" class="form-control" {% if user.is_authenticated %} value="{{user.email}}" {% endif %}>
+                </div>
+              </div>
+
+              <div class="col-lg-12 col-md-12">
+                <div class="form-group">
+                  <label>Phone</label>
+                  <input type="text" name="phone" class="form-control" value="">
+                </div>
+              </div>
+
+              <div class="col-lg-12 col-md-12">
+                <div class="form-group">
+                  <label>Message</label>
+                  <textarea class="form-control ht-120" name="message" placeholder="Please leave your message"></textarea>
+                </div>
+              </div>
+
+            </div>
+<!--
+            <div class="default-terms_wrap">
+              <div class="default-terms_flex">
+                <input id="tm" class="checkbox-custom" name="tm" type="checkbox">
+                <label for="tm" class="checkbox-custom-label"></label>
+              </div>
+              <div class="default-terms">By submitting this form, you agree to our <a href="#" title="Terms of Service">Terms of Service</a> and <a href="#" title="Privacy Policy">Privacy Policy</a>.</div>
+            </div> -->
+
+            <div class="form-group">
+              <button type="submit" class="btn btn-md full-width pop-login">Send Message</button>
+            </div>
+
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- End Modal -->
+
+<!-- Video Modal -->
+{% if listing.property_video %}
+<div class="modal fade" id="popup-video" tabindex="-1" role="dialog" aria-labelledby="popupvideo" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content" id="popupvideo">
+    <video width="598" height="600" controls controls controlsList="nodownload"><source src="{{listing.property_video.url}}" type="video/mp4"></video>
+    </div>
+  </div>
+</div>
+{% endif %}
+<!-- End Video Modal -->
+
+{% endblock %}

@@ -1,0 +1,790 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load humanize %}
+{% block title %}Rent House - Find Apartment, Flat, Rooms, PG, Hostels, Residence Properties{% endblock %}
+{% block content %}
+<div class="clearfix"></div>
+<!-- ============================================================== -->
+<!-- Top header  -->
+<!-- ============================================================== -->
+
+
+<!-- ============================ Hero Banner  Start================================== -->
+<div class="image-cover hero-banner" style="background:url({% static 'assets/img/banner-3.jpg' %}) no-repeat;" data-overlay="5">
+  <div class="container">
+    <p class="lead-i">Complete Brokerage Free Rent <span class="badge badge-success">New</span></p>
+    <h2 class="mb-3"><span class="font-normal">Find Your Perfect</span> <span class="txt-type" data-wait="1000" data-words='["Home.", "Apartment.", "Room.", "PG/Hostel.", "Flat.", "Office."]'></span></h2>
+    <div class="full-search-2 eclip-search italian-search hero-search-radius shadow">
+      <div class="hero-search-content">
+        <form action="{% url 'search' %}">
+
+          <div class="row">
+
+            <div class="col-lg-4 col-md-3 col-sm-12 b-r">
+              <div class="form-group borders">
+                <div class="input-with-icon">
+                  <input type="text" name="keywords" class="form-control" placeholder="Search | location, Landmark, Road, Pincode">
+                  <i class="ti-search"></i>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-2 col-md-2 col-sm-12">
+              <div class="form-group borders">
+                <div class="input-with-icon">
+                  <select name="city" id="cities" class="form-control">
+                    <option value="">&nbsp;</option>
+                    {% for key,value in city_choices.items %}
+                    <option value="{{key}}">{{value}}</option>
+                    {% endfor %}
+                  </select>
+                  <i class="ti-location-pin"></i>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-2 col-md-2 col-sm-12 b-l">
+              <div class="form-group borders">
+                <div class="input-with-icon">
+                  <select name="property_type" id="ptypes" class="form-control">
+                  <option value="">&nbsp;</option>
+                    {% for key,value in property_choices.items %}
+                  <option value="{{key}}">{{value}}</option>
+                  {% endfor %}
+                  </select>
+                  <i class="ti-home"></i>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-2 col-md-2 col-sm-12">
+              <div class="form-group borders">
+                <div class="input-with-icon b-l">
+                  <select name="available_for" id="availfor" class="form-control">
+                    <option value="">&nbsp;</option>
+                    {% for key,value in availability_choices.items %}
+                    <option value="{{key}}">{{value}}</option>
+                    {% endfor %}
+                  </select>
+                  <i class="ti-user"></i>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-2 col-md-2 col-sm-12">
+              <div class="form-group">
+                <button type="submit" class="btn search-btn">search</button>
+              </div>
+            </div>
+
+          </div>
+        </form>
+      </div>
+    </div>
+
+  </div>
+</div>
+<div class="clearfix"></div>
+<!-- ============================ Hero Banner End ================================== -->
+
+
+<!-- ============================ Achievement Start ================================== -->
+<!-- <section>
+  <div class="container">
+
+    <div class="row justify-content-center">
+      <div class="col-lg-7 col-md-10 text-center">
+        <div class="sec-heading center mb-4">
+          <h2>Achievement</h2>
+          <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-3 col-md-3 col-sm-6">
+        <div class="achievement-wrap">
+          <div class="achievement-content">
+            <h4>20500+</h4>
+            <p>Completed Property</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-3 col-md-3 col-sm-6">
+        <div class="achievement-wrap">
+          <div class="achievement-content">
+            <h4>7600+</h4>
+            <p>Property rents</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-3 col-md-3 col-sm-6">
+        <div class="achievement-wrap">
+          <div class="achievement-content">
+            <h4>12300+</h4>
+            <p>Apartment Rent</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-3 col-md-3 col-sm-6">
+        <div class="achievement-wrap">
+          <div class="achievement-content">
+            <h4>15200+</h4>
+            <p>Happy Clients</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+<div class="clearfix"></div> -->
+<!-- ============================ Achievement End ================================== -->
+
+<!-- ============================ Latest Property For rent Start ================================== -->
+<section>
+  <div class="container">
+
+    <div class="row justify-content-center">
+      <div class="col-lg-7 col-md-10 text-center">
+        <div class="sec-heading center mb-4">
+          <h2>Recent Property For Rent</h2>
+          <p>Find the latest properties in your dream city, these are the latest properties that are recently posted by our verified agents only.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-12 col-md-12">
+        <div class="property-slide">
+      {% if listings %}
+        {% for listing in listings %}
+          <!-- Single Property -->
+          <div class="single-items">
+            <div class="property-listing shadow-none property-2 border">
+
+              <div class="listing-img-wrapper">
+                <div class="_exlio_125">₹ {{listing.price | intcomma}}</div>
+                <div class="list-img-slide">
+                  <div class="click">
+                    <div><a href="{{listing.get_absolute_url}}" target="_blank"><img src="{{listing.photo_main.url}}" class="img-fluid mx-auto" alt="" /></a></div>
+                    <div><a href="{{listing.get_absolute_url}}" target="_blank"><img src="{{listing.front_home_photo.url}}" class="img-fluid mx-auto" alt="" /></a></div>
+                    {% if listing.second_room_photo %}
+                    <div><a href="{{listing.get_absolute_url}}" target="_blank"><img src="{{listing.second_room_photo.url}}" class="img-fluid mx-auto" alt="" /></a></div>
+                    {% endif %}
+                  </div>
+                </div>
+              </div>
+
+              <div class="listing-detail-wrapper">
+                <div class="listing-short-detail-wrap">
+                  <div class="listing-short-detail">
+                    <span class="property-type elt_rent">For Rent</span>
+                    <h4 class="listing-name verified"><a href="{{listing.get_absolute_url}}" target="_blank" class="prt-link-detail">{{listing.title}}</a></h4>
+                  </div>
+                  <div class="listing-short-detail-flex">
+                    <div class="prt_saveed_12lk">
+                      <label class="toggler toggler-danger"><input type="checkbox"><i class="fas fa-heart"></i></label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="price-features-wrapper">
+                <div class="list-fx-features">
+                  <div class="listing-card-info-icon">
+                    <div class="inc-fleat-icon"><img src="{% static 'assets/img/bed.svg' %}" width="13" alt="" /></div>{{listing.bedroom}} Beds
+                  </div>
+                  <div class="listing-card-info-icon">
+                    <div class="inc-fleat-icon"><img src="{% static 'assets/img/bathtub.svg' %}" width="13" alt="" /></div>{{listing.bathroom}} Bath
+                  </div>
+                  <div class="listing-card-info-icon">
+                    <div class="inc-fleat-icon"><img src="{% static 'assets/img/move.svg' %}" width="13" alt="" /></div>{{listing.area_sqft_size}} sqft
+                  </div>
+                </div>
+              </div>
+
+              <div class="listing-detail-footer">
+                <div class="footer-first">
+                  <div class="foot-location"><img src="{% static 'assets/img/pin.svg' %}" width="18" alt="" />{{listing.address}}, {{listing.city}}, {{listing.pincode}}</div>
+                </div>
+                <div class="footer-flex">
+                  <a href="{{listing.get_absolute_url}}" target="_blank" class="prt-view">View</a>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        {% endfor %}
+      {% else %}
+        <div class="col-lg-12 col-md-12"><p>No listings Available</p></div>
+      {% endif %}
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+<!-- ============================ Latest Property For rent End ================================== -->
+
+<!-- ============================ All Property ================================== -->
+<section class="bg-light">
+  <div class="container">
+
+    <div class="row justify-content-center">
+      <div class="col-lg-7 col-md-10 text-center">
+        <div class="sec-heading center">
+          <h2>Featured Property For Rent</h2>
+          <p>Find the latest featured properties in your dream city, these are the latest properties that are recently posted by our verified agents only. Explore our features properties for rent in your budgets.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="row list-layout">
+
+      {% if flistings %}
+        {% for listing in flistings %}
+          <!-- Single Property Start -->
+          <div class="col-lg-6 col-md-12">
+            <div class="property-listing property-1">
+
+              <div class="listing-img-wrapper">
+                <a href="{{listing.get_absolute_url}}" target="_blank">
+                  <img src="{{listing.photo_main.url}}" class="img-fluid mx-auto" alt="" />
+                </a>
+              </div>
+
+              <div class="listing-content">
+
+                <div class="listing-detail-wrapper-box">
+                  <div class="listing-detail-wrapper">
+                    <div class="listing-short-detail">
+                      <h4 class="listing-name"><a href="{{listing.get_absolute_url}}" target="_blank">{{listing.title}} <img src="{% static 'assets/img/veryfy.png' %}" width="20" alt="verified"></a></h4>
+                      <!-- <div class="fr-can-rating">
+                        <i class="fas fa-star filled"></i>
+                        <i class="fas fa-star filled"></i>
+                        <i class="fas fa-star filled"></i>
+                        <i class="fas fa-star filled"></i>
+                        <i class="fas fa-star"></i>
+                        <span class="reviews_text">(42 Reviews)</span>
+                      </div> -->
+                      <span class="prt-types rent">For rent</span>
+                      <span class="_list_blickes types">{{listing.available_for}}</span>
+                    </div>
+                    <div class="list-price">
+                      <h6 class="listing-card-info-price">₹ {{listing.price | intcomma}}</h6>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="price-features-wrapper">
+                  <div class="list-fx-features">
+                    <div class="listing-card-info-icon">
+                      <div class="inc-fleat-icon"><img src="{% static 'assets/img/bed.svg' %}" width="13" alt="" /></div>{{listing.bedroom}} Beds
+                    </div>
+                    <div class="listing-card-info-icon">
+                      <div class="inc-fleat-icon"><img src="{% static 'assets/img/bathtub.svg' %}" width="13" alt="" /></div>{{listing.bathroom}} Bath
+                    </div>
+                    <div class="listing-card-info-icon">
+                      <div class="inc-fleat-icon"><img src="{% static 'assets/img/move.svg' %}" width="13" alt="" /></div>{{listing.area_sqft_size}} sqft
+                    </div>
+                  </div>
+                </div>
+
+                <div class="listing-footer-wrapper">
+                  <div class="listing-locate">
+                    <span class="listing-location"><i class="ti-location-pin"></i>{{listing.city}}, {{listing.pincode}}</span>
+                  </div>
+                  <div class="listing-detail-btn">
+                    <a href="{{listing.get_absolute_url}}" target="_blank" class="more-btn">View</a>
+                  </div>
+                </div>
+
+              </div>
+
+            </div>
+          </div>
+          <!-- Single Property End -->
+        {% endfor %}
+
+      {% else %}
+        <div class="col-lg-6 col-md-12"><p>No listings</p></div>
+      {% endif %}
+
+    </div>
+
+    <!-- Pagination -->
+    <div class="row">
+      <div class="col-lg-12 col-md-12 col-sm-12 text-center">
+        <a href="{% url 'featured_listings' %}" class="btn btn-theme-light rounded">Browse More Properties</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+<!-- ============================ All Featured Property ================================== -->
+
+<!-- ============================ Step How To Use Start ================================== -->
+<section>
+  <div class="container">
+
+    <div class="row justify-content-center">
+      <div class="col-lg-7 col-md-10 text-center">
+        <div class="sec-heading center">
+          <h2>How It Works?</h2>
+          <p>We verify your property in these easy steps and show your property to the customers as per your requirement.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-4 col-md-4">
+        <div class="middle-icon-features-item">
+          <div class="icon-features-wrap"><div class="middle-icon-large-features-box f-light-success"><i class="ti-receipt text-success"></i></div></div>
+          <div class="middle-icon-features-content">
+            <h4>Evaluate Property</h4>
+            <p>Submit your property request by clicking on the post property button.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-4 col-md-4">
+        <div class="middle-icon-features-item">
+          <div class="icon-features-wrap"><div class="middle-icon-large-features-box f-light-warning"><i class="ti-user text-warning"></i></div></div>
+          <div class="middle-icon-features-content">
+            <h4>Meet Your Agent</h4>
+            <p>Our agents will contact you to verify your property.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-4 col-md-4">
+        <div class="middle-icon-features-item remove">
+          <div class="icon-features-wrap"><div class="middle-icon-large-features-box f-light-blue"><i class="ti-shield text-blue"></i></div></div>
+          <div class="middle-icon-features-content">
+            <h4>Close The Deal</h4>
+            <p>After the completion of the verification process, your property will be shown to our customers.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+<div class="clearfix"></div>
+<!-- ============================ Step How To Use End ====================== -->
+
+<!-- ============================ Start mvp agents ================================== -->
+<section>
+  <div class="container">
+
+    <div class="row justify-content-center">
+      <div class="col-lg-7 col-md-10 text-center">
+        <div class="sec-heading center">
+          <h2>Explore Featured Agents</h2>
+          <p>These are our top-performing agents whose work and dedication helped us get here. Find your agent in your city by exploring our agents.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+        {% if agents %}
+          {% for agent in agents %}
+            <!-- Single Agent -->
+            <div class="col-lg-3 col-md-12 col-sm-12">
+              <div class="agents-grid">
+
+                <div class="agents-grid-wrap">
+
+                  <div class="fr-grid-thumb">
+                    <a href="{% url 'single_agent' agent.id %}">
+                      <img src="{{agent.photo.url}}" class="img-fluid mx-auto" alt="" />
+                    </a>
+                  </div>
+
+                  <div class="fr-grid-deatil">
+                    <div class="fr-grid-deatil-flex">
+                      <h5 class="fr-can-name"><a href="#">{{agent.name}}</a></h5>
+                      <span class="agent-property">{{agent.designation}}</span><br>
+                      <!-- <span class="agent-property">(117 Properties)</span><br> -->
+                      {% if user.is_authenticated %}
+                      <span class="agent-property"><b>Call: </b>{{agent.phone}}</span>
+                      {% endif %}
+                    </div>
+                    <div class="fr-grid-deatil-flex-right">
+                      <div class="agent-email"><a href="{{agent.email}}"><i class="ti-email"></i></a></div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="fr-grid-footer">
+                  <div class="fr-grid-footer-flex">
+                    <span class="fr-position"><i class="lni-map-marker"></i>{{agent.city}}</span>
+                  </div>
+                  <div class="fr-grid-footer-flex-right">
+                    <a href="{% url 'single_agent' agent.id %}" class="prt-view" tabindex="0">View</a>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          {% endfor %}
+        {% else %}
+          <div class="col-lg-4 col-md-6 col-sm-12"><p>No agents Available</p></div>
+        {% endif %}
+
+    </div>
+
+    <!-- Pagination -->
+    <div class="row">
+      <div class="col-lg-12 col-md-12 col-sm-12 text-center">
+        <a href="{% url 'agents' %}" class="btn btn-theme-light-2 rounded">Explore More Agents</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+<div class="clearfix"></div>
+<!-- ============================ Step How To Use End ================================== -->
+
+<!-- ============================ Property Location Start ================================== -->
+			<section class="bg-light">
+				<div class="container">
+
+					<div class="row justify-content-center">
+						<div class="col-lg-7 col-md-10 text-center">
+							<div class="sec-heading center">
+								<h2>Find By Locations</h2>
+								<p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores</p>
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+
+						<div class="col-lg-4 col-md-4">
+							<div class="location-property-wrap">
+								<div class="location-property-thumb">
+									<a href="{% url 'agra_city' %}"><img src="{% static 'assets/img/cities/agra.jpg' %}" class="img-fluid" alt="" /></a>
+								</div>
+								<div class="location-property-content">
+									<div class="lp-content-flex">
+										<h4 class="lp-content-title">Agra, Uttar Pradesh</h4>
+										<span>{{AgraListings}} Properties</span>
+									</div>
+									<div class="lp-content-right">
+										<a href="{% url 'agra_city' %}" class="lp-property-view"><i class="ti-angle-right"></i></a>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-lg-4 col-md-4">
+							<div class="location-property-wrap">
+								<div class="location-property-thumb">
+									<a href="{% url 'delhi_city' %}"><img src="{% static 'assets/img/cities/delhi.jpg' %}" class="img-fluid" alt="" /></a>
+								</div>
+								<div class="location-property-content">
+									<div class="lp-content-flex">
+										<h4 class="lp-content-title">Delhi, India</h4>
+										<span>{{DelhiListings}} Properties</span>
+									</div>
+									<div class="lp-content-right">
+										<a href="{% url 'delhi_city' %}" class="lp-property-view"><i class="ti-angle-right"></i></a>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-lg-4 col-md-4">
+							<div class="location-property-wrap">
+								<div class="location-property-thumb">
+									<a href="{% url 'gurgaon_city' %}"><img src="{% static 'assets/img/cities/gurgaon.jpg' %}" class="img-fluid" alt="" /></a>
+								</div>
+								<div class="location-property-content">
+									<div class="lp-content-flex">
+										<h4 class="lp-content-title">Gurgaon, Haryana</h4>
+										<span>{{GurgaonListings}} Properties</span>
+									</div>
+									<div class="lp-content-right">
+										<a href="{% url 'gurgaon_city' %}" class="lp-property-view"><i class="ti-angle-right"></i></a>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-lg-4 col-md-4">
+							<div class="location-property-wrap">
+								<div class="location-property-thumb">
+									<a href="{% url 'bangalore_city' %}"><img src="{% static 'assets/img/cities/bangalore.jpg' %}" class="img-fluid" alt="" /></a>
+								</div>
+								<div class="location-property-content">
+									<div class="lp-content-flex">
+										<h4 class="lp-content-title">Bangalore, Karnataka</h4>
+										<span>{{BangaloreListings}} Properties</span>
+									</div>
+									<div class="lp-content-right">
+										<a href="{% url 'bangalore_city' %}" class="lp-property-view"><i class="ti-angle-right"></i></a>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-lg-4 col-md-4">
+							<div class="location-property-wrap">
+								<div class="location-property-thumb">
+									<a href="{% url 'patna_city' %}"><img src="{% static 'assets/img/cities/patna.jpg' %}" class="img-fluid" alt="" /></a>
+								</div>
+								<div class="location-property-content">
+									<div class="lp-content-flex">
+										<h4 class="lp-content-title">Patna, Bihar</h4>
+										<span>{{PatnaListings}} Properties</span>
+									</div>
+									<div class="lp-content-right">
+										<a href="{% url 'patna_city' %}" class="lp-property-view"><i class="ti-angle-right"></i></a>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-lg-4 col-md-4">
+							<div class="location-property-wrap">
+								<div class="location-property-thumb">
+									<a href="{% url 'mumbai_city' %}"><img src="{% static 'assets/img/cities/mumbai.jpg' %}" class="img-fluid" alt="" /></a>
+								</div>
+								<div class="location-property-content">
+									<div class="lp-content-flex">
+										<h4 class="lp-content-title">Mumbai, India</h4>
+										<span>{{MumbaiListings}} Properties</span>
+									</div>
+									<div class="lp-content-right">
+										<a href="{% url 'mumbai_city' %}" class="lp-property-view"><i class="ti-angle-right"></i></a>
+									</div>
+								</div>
+							</div>
+						</div>
+
+					</div>
+
+					<!-- <div class="row">
+						<div class="col-lg-12 col-md-12 col-sm-12 text-center">
+							<a href="#" class="btn btn-theme-light-2 rounded">Browse More Locations</a>
+						</div>
+					</div> -->
+
+				</div>
+			</section>
+			<!-- ============================ Property Location End ================================== -->
+
+<!-- ============================ Smart Testimonials ================================== -->
+<!-- <section class="bg-orange">
+  <div class="container">
+
+    <div class="row justify-content-center">
+      <div class="col-lg-7 col-md-10 text-center">
+        <div class="sec-heading center">
+          <h2>Good Reviews by Customers</h2>
+          <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="row justify-content-center">
+
+      <div class="col-lg-12 col-md-12">
+
+        <div class="smart-textimonials smart-center" id="smart-textimonials">
+
+        single item
+
+          <div class="item">
+            <div class="item-box">
+              <div class="smart-tes-author">
+                <div class="st-author-box">
+                  <div class="st-author-thumb">
+                    <div class="quotes bg-blue"><i class="ti-quote-right"></i></div>
+                    <img src="https://via.placeholder.com/400x400" class="img-fluid" alt="" />
+                  </div>
+                </div>
+              </div>
+
+              <div class="smart-tes-content">
+                <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti.</p>
+              </div>
+
+              <div class="st-author-info">
+                <h4 class="st-author-title">Adam Williams</h4>
+                <span class="st-author-subtitle">CEO Of Microwoft</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section> -->
+<!-- ============================ Smart Testimonials End ================================== -->
+
+<!-- ============================ Price Table Start ================================== -->
+<section>
+  <div class="container">
+
+    <div class="row justify-content-center">
+      <div class="col-lg-7 col-md-10 text-center">
+        <div class="sec-heading center">
+          <h2>See our packages for property owners</h2>
+          <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+
+      <!-- Single Package -->
+      <div class="col-lg-4 col-md-4">
+        <div class="pricing-wrap basic-pr">
+
+          <div class="pricing-header">
+            <h4 class="pr-value"><sup>₹</sup>1999</h4>
+            <h4 class="pr-title">Basic Package <span class="badge badge-success">Latest Price</span></h4>
+          </div>
+          <div class="pricing-body">
+            <ul>
+              <li class="available">3+ Listings</li>
+              <li class="available">Contact With Agent</li>
+              <li class="available">6 Month Validity</li>
+              <li class="available">Weekdays Support Only</li>
+              <li>Personal Care Taker</li>
+            </ul>
+          </div>
+          <div class="pricing-bottom">
+            <a href="#" class="btn-pricing">Choose Plan</a>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Single Package -->
+      <div class="col-lg-4 col-md-4">
+        <div class="pricing-wrap platinum-pr recommended">
+
+          <div class="pricing-header">
+            <h4 class="pr-value"><sup>₹</sup>4999</h4>
+            <h4 class="pr-title">Platinum Package <span class="badge badge-success">Latest Price</span></h4>
+          </div>
+          <div class="pricing-body">
+            <ul>
+              <li class="available">10+ Listings</li>
+              <li class="available">Contact With Agent</li>
+              <li class="available">6 Month Validity</li>
+              <li class="available">7x24 Fully Support</li>
+              <li>Personal Care Taker</li>
+            </ul>
+          </div>
+          <div class="pricing-bottom">
+            <a href="#" class="btn-pricing">Choose Plan</a>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Single Package -->
+      <div class="col-lg-4 col-md-4">
+        <div class="pricing-wrap standard-pr">
+
+          <div class="pricing-header">
+            <h4 class="pr-value"><sup>₹</sup>7999</h4>
+            <h4 class="pr-title">Prime Package <span class="badge badge-success">latest Price</span></h4>
+          </div>
+          <div class="pricing-body">
+            <ul>
+              <li class="available">20+ Listings</li>
+              <li class="available">Contact With Agent</li>
+              <li class="available">6 Month Validity</li>
+              <li class="available">7x24 Fully Support</li>
+              <li class="available">Personal Care taker</li>
+            </ul>
+          </div>
+          <div class="pricing-bottom">
+            <a href="#" class="btn-pricing">Choose Plan</a>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+<!-- ============================ Price Table End ================================== -->
+
+<!-- ========================== Download App Section =============================== -->
+<section class="bg-light">
+  <div class="container">
+    <div class="row align-items-center">
+
+      <div class="col-lg-7 col-md-12 col-sm-12 content-column">
+        <div class="content_block_2">
+          <div class="content-box">
+            <div class="sec-title light">
+              <p class="text-blue">Download apps</p>
+              <h2>Download App Free App For Android and iPhone</h2>
+            </div>
+            <div class="text">
+              <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto accusantium.</p>
+            </div>
+            <div class="btn-box clearfix mt-5">
+              <a href="index.html" class="download-btn play-store">
+                <i class="fab fa-google-play"></i>
+                <span>Download on</span>
+                <h3>Google Play</h3>
+              </a>
+
+              <a href="index.html" class="download-btn app-store">
+                <i class="fab fa-apple"></i>
+                <span>Download on</span>
+                <h3>App Store</h3>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-5 col-md-12 col-sm-12 image-column">
+        <div class="image-box">
+          <figure class="image"><img src="{% static 'assets/img/Web_App.png' %}" class="img-fluid" alt="Application Banner"></figure>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- ========================== Download App Section =============================== -->
+
+<!-- ============================ Call To Action ================================== -->
+<!-- <section class="theme-bg call-to-act-wrap">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+
+        <div class="call-to-act">
+          <div class="call-to-act-head">
+            <h3>Want to Become a Real Estate Agent?</h3>
+            <span>We'll help you to grow your career and growth.</span>
+          </div>
+          <a href="#" class="btn btn-call-to-act">SignUp Today</a>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section> -->
+<!-- ============================ Call To Action End ================================== -->
+
+{% endblock %}

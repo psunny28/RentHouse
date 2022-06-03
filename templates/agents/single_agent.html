@@ -1,0 +1,301 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load humanize %}
+{% block title %}Our Agents | Get In Touch{% endblock %}
+{% block content %}
+<!-- ============================ Page Title Start================================== -->
+<div class="image-cover page-title">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12 col-md-12">
+
+        <h2 class="ipt-title">Agent Detail</h2>
+        <span class="ipn-subtitle">{{agent.name}}</span>
+
+      </div>
+    </div>
+  </div>
+</div>
+<!-- ============================ Page Title End ================================== -->
+
+<!-- ============================ Agency Name Start================================== -->
+<section class="agent-page p-0 gray-simple">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12 col-md-12">
+        <div class="agency agency-list overlio-40">
+
+          <div class="agency-avatar">
+            <img src="{{agent.photo.url}}" alt="">
+          </div>
+
+          <div class="agency-content">
+            <div class="agency-name">
+              <h4><a>{{agent.name}}</a></h4>
+              <span class="agent-property">({{agent.designation}})</span><br>
+              <span><i class="lni-map-marker"></i>{{agent.city}}</span>
+            </div>
+
+            <div class="agency-desc">
+            <p>{{agent.description}}</p>
+            </div>
+
+            <div class="prt-detio">
+              <span>{{agent_listing_count}} Property</span>
+            </div>
+
+            <ul class="social-icons">
+              <li><a class="facebook" href="#"><i class="lni-facebook"></i></a></li>
+              <li><a class="twitter" href="#"><i class="lni-twitter"></i></a></li>
+              <li><a class="linkedin" href="#"><i class="lni-instagram"></i></a></li>
+              <li><a class="linkedin" href="#"><i class="lni-linkedin"></i></a></li>
+            </ul>
+            <div class="clearfix"></div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- ============================ Agency Name ================================== -->
+
+<!-- ============================ About Agency ================================== -->
+<section class="min gray-simple">
+  <div class="container">
+    <div class="row">
+
+      <!-- property main detail -->
+      <div class="col-lg-8 col-md-12 col-sm-12">
+
+        <!-- Single Block Wrap -->
+        <div class="block-wrap">
+
+          <div class="block-header">
+            <h4 class="block-title">Agent Info</h4>
+          </div>
+
+          <div class="block-body">
+            <ul class="dw-proprty-info">
+              {% if user.is_authenticated %}
+              <li><strong>Phone</strong>{{agent.phone}}</li>
+              <li><strong>Email</strong>{{agent.email}}</li>
+              <li></li>
+              {% endif %}
+              <li><strong>City</strong>{{agent.city}}</li>
+              <li><strong>Country</strong>India</li>
+              <li><strong>Employee ID.</strong>{{agent.Employee_ID}}</li>
+              <li><strong>Designation.</strong>{{agent.designation}}</li>
+              <li><strong>Employee Since.</strong>{{agent.hire_date}}</li>
+            </ul>
+          </div>
+
+        </div>
+
+        <!-- Single Block Wrap -->
+        <div class="block-wraps">
+          <div class="block-wraps-header">
+
+            <div class="block-header">
+              <ul class="nav nav-tabs customize-tab" id="myTab" role="tablist">
+                <li class="nav-item" role="presentation">
+                <a class="nav-link active" id="rental-tab" data-bs-toggle="tab" href="#rental" role="tab" aria-controls="rental" aria-selected="true">Rental</a>
+                </li>
+                <!-- <li class="nav-item" role="presentation">
+                <a class="nav-link" id="sale-tab" data-bs-toggle="tab" href="#sale" role="tab" aria-controls="sale" aria-selected="false">For Sale</a>
+                </li> -->
+              </ul>
+            </div>
+
+            <div class="block-body">
+              <div class="tab-content" id="myTabContent">
+
+                <div class="tab-pane fade show active" id="rental" role="tabpanel" aria-labelledby="rental-tab">
+                  <!-- row -->
+                  <div class="row">
+                  {% if listings %}
+                  {% for listing in listings %}
+                    <!-- Single Property -->
+                    <div class="col-lg-6 col-md-6 col-sm-12">
+                      <div class="property-listing property-2">
+
+                        <div class="listing-img-wrapper">
+                          <div class="list-img-slide">
+                            <div class="clicks">
+                              <div><a href="{{listing.get_absolute_url}}" class="prt-link-detail"><img src="{{listing.photo_main.url}}" class="img-fluid mx-auto" alt="main photo"/></a></div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="listing-detail-wrapper">
+                          <div class="listing-short-detail-wrap">
+                            <div class="listing-short-detail">
+                              <span class="property-type elt_rent">For Rent</span>
+                              <h4 class="listing-name"><a href="{{listing.get_absolute_url}}" target="_blank">{{listing.title}}</a></h4>
+                            </div>
+                            <div class="listing-short-detail-flex">
+                              <h6 class="listing-card-info-price">₹{{listing.price | intcomma}}</h6>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="price-features-wrapper">
+                          <div class="list-fx-features">
+                            <div class="listing-card-info-icon">
+                              <div class="inc-fleat-icon"><img src="{% static 'assets/img/bed.svg' %}" width="13" alt="" /></div>{{listing.bedroom}} Beds
+                            </div>
+                            <div class="listing-card-info-icon">
+                              <div class="inc-fleat-icon"><img src="{% static 'assets/img/bathtub.svg' %}" width="13" alt="" /></div>{{listing.bathroom}} Bath
+                            </div>
+                            <div class="listing-card-info-icon">
+                              <div class="inc-fleat-icon"><img src="{% static 'assets/img/move.svg' %}" width="13" alt="" /></div>{{listing.area_sqft_size}} sqft
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="listing-detail-footer">
+                          <div class="footer-first">
+                            <div class="foot-location"><img src="{% static 'assets/img/pin.svg' %}" width="18" alt="address" />{{listing.city}} {{listing.pincode}}</div>
+                          </div>
+                          <div class="footer-flex">
+                            <a href="{{listing.get_absolute_url}}" class="prt-view">View</a>
+                          </div>
+                        </div>
+
+                      </div>
+                    </div>
+                    <!-- End Single Property -->
+                  {% endfor %}
+                  {% endif %}
+                  </div>
+                  <!-- // row -->
+
+                  <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 text-center">
+                      <a href="{% url 'listings' %}" class="btn btn-theme-light-2 rounded">Explore More Property</a>
+                    </div>
+                  </div>
+
+                </div>
+
+                <div class="tab-pane fade" id="sale" role="tabpanel" aria-labelledby="sale-tab">
+                  <!-- row -->
+                  <div class="row">
+                    <!-- Single Property -->
+                    <div class="col-lg-6 col-md-6 col-sm-12">
+                      <div class="property-listing property-2">
+
+                        <div class="listing-img-wrapper">
+                          <div class="list-img-slide">
+                            <div class="clicks">
+                              <div><img src="https://via.placeholder.com/1200x800" class="img-fluid mx-auto" alt="" /></div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="listing-detail-wrapper">
+                          <div class="listing-short-detail-wrap">
+                            <div class="listing-short-detail">
+                              <span class="property-type">For Rent</span>
+                              <h4 class="listing-name verified"><a href="single-property-1.html" class="prt-link-detail">Found Property Group</a></h4>
+                            </div>
+                            <div class="listing-short-detail-flex">
+                              <h6 class="listing-card-info-price">$2,850</h6>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="price-features-wrapper">
+                          <div class="list-fx-features">
+                            <div class="listing-card-info-icon">
+                              <div class="inc-fleat-icon"><img src="assets/img/bed.svg" width="13" alt="" /></div>3 Beds
+                            </div>
+                            <div class="listing-card-info-icon">
+                              <div class="inc-fleat-icon"><img src="assets/img/bathtub.svg" width="13" alt="" /></div>1 Bath
+                            </div>
+                            <div class="listing-card-info-icon">
+                              <div class="inc-fleat-icon"><img src="assets/img/move.svg" width="13" alt="" /></div>800 sqft
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="listing-detail-footer">
+                          <div class="footer-first">
+                            <div class="foot-location"><img src="assets/img/pin.svg" width="18" alt="" />210 Zirak Road, Canada</div>
+                          </div>
+                          <div class="footer-flex">
+                            <a href="property-detail.html" class="prt-view">View</a>
+                          </div>
+                        </div>
+
+                      </div>
+                    </div>
+                    <!-- End Single Property -->
+
+                  </div>
+                  <!-- // row -->
+
+                  <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 text-center">
+                      <a href="listings-list-with-sidebar.html" class="btn btn-theme-light-2 rounded">Explore More Property</a>
+                    </div>
+                  </div>
+
+                </div>
+
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- property Sidebar -->
+      <div class="col-lg-4 col-md-12 col-sm-12">
+
+        <div class="details-sidebar">
+
+          <!-- Featured Property -->
+              <div class="sidebar-widgets">
+
+                <h4>Explore Feature Properties</h4>
+                {% if featured_listings %}
+                  {% for listing in featured_listings %}
+
+                <div class="sidebar_featured_property">
+
+                  <!-- List Sibar Property -->
+                  <div class="sides_list_property">
+                    <div class="sides_list_property_thumb">
+                      <img src="{{listing.photo_main.url}}" class="img-fluid" alt="photo_main">
+                    </div>
+                    <div class="sides_list_property_detail">
+                      <h4><a href="{{listing.get_absolute_url}}">{{listing.title}}</a></h4>
+                      <span><i class="ti-location-pin"></i>{{listing.city}}, {{listing.pincode}}</span>
+                      <div class="lists_property_price">
+                        <div class="lists_property_types">
+                          <div class="property_types_vlix">For Rent</div>
+                        </div>
+                        <div class="lists_property_price_value">
+                          <h4>₹ {{listing.price|intcomma}}</h4>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+                {% endfor %}
+              {% endif %}
+              </div>
+
+
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</section>
+<!-- ============================ About Agency End ================================== -->
+
+{% endblock %}

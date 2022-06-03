@@ -1,0 +1,155 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load humanize %}
+{% block title %}Dashboard | {{user.first_name}}{% endblock %}
+{% block content %}
+<!-- This page plugins -->
+		<!-- ============================================================== -->
+
+			<!-- ============================ Page Title Start================================== -->
+			<div class="page-title">
+				<div class="container">
+					<div class="row">
+						<div class="col-lg-12 col-md-12">
+
+							<h2 class="ipt-title">Welcome! {{user.full_name}}</h2>
+							<span class="ipn-subtitle">This is your dashboard, to edit your details please click on <b>My Profile.</b></span>
+
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- ============================ Page Title End ================================== -->
+
+			<!-- ============================ User Dashboard ================================== -->
+			<section class="bg-light">
+				<div class="container-fluid">
+
+					<div class="row">
+						<div class="col-lg-12 col-md-12">
+							<div class="filter_search_opt">
+								<a href="javascript:void(0);" onclick="openFilterSearch()">Dashboard Navigation<i class="ml-2 ti-menu"></i></a>
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+            {% include 'includes/dashboard_sidebar.html' %}
+
+						<div class="col-lg-9 col-md-12">
+
+							<!-- <div class="row">
+								<div class="col-lg-12 col-md-12 col-sm-12">
+									<h4>Your Current Package: <span class="pc-title theme-cl">Gold Package</span></h4>
+								</div>
+							</div>
+
+							<div class="row">
+
+								<div class="col-lg-4 col-md-6 col-sm-12">
+									<div class="dashboard-stat widget-1">
+										<div class="dashboard-stat-content"><h4>{{my_listing_count}}</h4> <span>Totel Live Properties</span></div>
+										<div class="dashboard-stat-icon"><i class="ti-location-pin"></i></div>
+									</div>
+								</div>
+
+								<div class="col-lg-4 col-md-6 col-sm-12">
+									<div class="dashboard-stat widget-4">
+										<div class="dashboard-stat-content"><h4>0</h4> <span>Favorite Properties</span></div>
+										<div class="dashboard-stat-icon"><i class="ti-heart"></i></div>
+									</div>
+								</div>
+
+								<div class="col-lg-4 col-md-6 col-sm-12">
+									<div class="dashboard-stat widget-2">
+										<div class="dashboard-stat-content"><h4>0</h4> <span>Booked Properties</span></div>
+										<div class="dashboard-stat-icon"><i class="ti-pie-chart"></i></div>
+									</div>
+								</div>
+								<div class="col-lg-4 col-md-6 col-sm-12">
+									<div class="dashboard-stat widget-2">
+										<div class="dashboard-stat-content"><h4>25+</h4> <span>Properties You Can Post</span></div>
+										<div class="dashboard-stat-icon"><i class="ti-pie-chart"></i></div>
+									</div>
+								</div>
+
+								<div class="col-lg-4 col-md-6 col-sm-12">
+									<div class="dashboard-stat widget-3">
+										<div class="dashboard-stat-content"><h4>70</h4> <span>Featured Included</span></div>
+										<div class="dashboard-stat-icon"><i class="ti-user"></i></div>
+									</div>
+								</div>
+
+								<div class="col-lg-4 col-md-6 col-sm-12">
+									<div class="dashboard-stat widget-4">
+										<div class="dashboard-stat-content"><h4>30</h4> <span>Featured Remaining</span></div>
+										<div class="dashboard-stat-icon"><i class="ti-location-pin"></i></div>
+									</div>
+								</div>
+
+								<div class="col-lg-4 col-md-6 col-sm-12">
+									<div class="dashboard-stat widget-5">
+										<div class="dashboard-stat-content"><h4>16</h4> <span>Images / per listing</span></div>
+										<div class="dashboard-stat-icon"><i class="ti-pie-chart"></i></div>
+									</div>
+								</div>
+
+								<div class="col-lg-4 col-md-6 col-sm-12">
+									<div class="dashboard-stat widget-6">
+										<div class="dashboard-stat-content"><h4>2021-02-26</h4> <span>Membership ending on</span></div>
+										<div class="dashboard-stat-icon"><i class="ti-user"></i></div>
+									</div>
+								</div>
+
+							</div> -->
+
+							<div class="dashboard-wraper">
+
+								<!-- Basic Information -->
+								<div class="form-submit">
+									<h4>My Account</h4>
+									<div class="submit-section">
+										<div class="row">
+
+											<div class="form-group col-md-6">
+												<label>Your Name</label>
+												<input type="text" class="form-control" value="{{user.full_name}}" disabled>
+											</div>
+											<div class="form-group col-md-6">
+												<label>Email</label>
+												<input type="email" class="form-control" value="{{user.email}}" disabled>
+											</div>
+
+											<div class="form-group col-md-6">
+												<label>Phone</label>
+												<input type="text" class="form-control" value="{{user.phone_number}}" disabled>
+											</div>
+
+											<div class="form-group col-md-6">
+												<label>Gender</label>
+												<input type="text" class="form-control" value="{{userprofile.gender}}" disabled>
+											</div>
+
+											<div class="form-group col-md-6">
+												<label>City</label>
+												<input type="text" class="form-control" value="{{userprofile.city}}" disabled>
+											</div>
+											<!-- {% if userprofile.premium %} -->
+											<div class="form-group col-md-6">
+												<label>Pincode</label>
+												<input type="text" class="form-control" value="{{userprofile.pincode}}" disabled>
+											</div>
+											<!-- {% endif %} -->
+
+										</div>
+									</div>
+								</div>
+
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</section>
+			<!-- ============================ User Dashboard End ================================== -->
+{% endblock %}

@@ -1,0 +1,12 @@
+{% autoescape off %}
+Hello {{user.first_name}}
+
+You have registered an account on Rent House, before being able to use your account you need to verify that this is your email address. Please verify your account by clicking below verification link.
+
+http://{{domain}}{% url 'activate' uidb64=uid token=token %}
+
+If you think that it's not you please do click on the link and ignore this mail.
+
+Team
+Rent House
+{% endautoescape %}

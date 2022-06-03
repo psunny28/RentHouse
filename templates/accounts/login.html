@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Login Page | Rent House{% endblock %}
+{% block content %}
+
+{% if request.GET.command == 'verification' %}
+<!-- add padding 100px after fb and google button -->
+  <section>
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="alert alert-success text-center" role="alert">
+          <h2 class="alert-heading mb-4">Please verify your Account!</h2>
+          <p>Thank you for registering with us. We have sent a verification email to your email address <strong>{{request.GET.email}}</strong>, Please check and verify your account. 😀 </p>
+          <hr>
+          <p><i class="ti-user mr-1"></i>Already Verified?<a href="{% url 'login' %}" class="link">Login</a></p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+{% else %}
+<!-- Registration page start-->
+<section>
+    <div class="row justify-content-center">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content" id="sign-up">
+          <div class="modal-body">
+            <h2 class="mb-3">Sign In</h2>
+            {% include 'includes/alerts.html' %}
+            <div class="login-form">
+              <form action="{% url 'login' %}" method="POST">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="form-group">
+                      <div class="input-with-icon">
+                        <input type="email" name="email" class="form-control" placeholder="Email">
+                        <i class="ti-email"></i>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <div class="input-with-icon">
+                        <input type="password" name="password" class="form-control" placeholder="password">
+                        <i class="ti-lock"></i>
+                      </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                  <button type="submit" class="btn btn-md full-width btn-theme-light-2 rounded">Login</button>
+                </div>
+
+              </form>
+            </div>
+            <!-- <div class="modal-divider"><span>Or Login with</span></div>
+            <div class="social-login mb-3">
+              <ul>
+                <li><a href="#" class="btn connect-fb"><i class="ti-facebook"></i>Facebook</a></li>
+                <li><a href="#" class="btn connect-google"><i class="ti-google"></i>Google</a></li>
+              </ul>
+            </div> -->
+            <div class="text-center">
+              <p><a href="{% url 'forgetpassword' %}" class="link">Forgot password?</a></p><hr>
+              <p><i class="ti-user mb-2"></i>Do Not Have An Account?<a href="{% url 'register' %}" class="link"> Create Account</a></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</section>
+{% endif %}
+<div class="clearfix"></div>
+{% endblock %}

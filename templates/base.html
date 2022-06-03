@@ -1,0 +1,58 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="zxx">
+	<head>
+		<meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+        <title>{% block title %}Rent House - Find Apartment, Flat, Rooms, PG, Hostels, Residence Properties{% endblock %}</title>
+
+        <!-- Custom CSS -->
+        <link href="{% static 'assets/css/styles.css' %}" rel="stylesheet">
+				<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+        <!-- favicon -->
+        <link rel="icon" type="image/x-icon" href="{% static 'assets/img/favicon.png' %}">
+
+		<!-- Custom Color Option -->
+		<link href="{% static 'assets/css/colors.css' %}" rel="stylesheet">
+
+				<!-- All Jquery -->
+		<!-- ============================================================== -->
+		<script src="{% static 'assets/js/jquery.min.js' %}"></script>
+		<script src="{% static 'assets/js/popper.min.js' %}"></script>
+		<script src="{% static 'assets/js/bootstrap.min.js' %}"></script>
+		<script src="{% static 'assets/js/rangeslider.js' %}"></script>
+		<script src="{% static 'assets/js/select2.min.js' %}"></script>
+		<script src="{% static 'assets/js/jquery.magnific-popup.min.js' %}"></script>
+		<script src="{% static 'assets/js/slick.js' %}"></script>
+		<script src="{% static 'assets/js/slider-bg.js' %}"></script>
+		<script src="{% static 'assets/js/lightbox.js' %}"></script>
+		<script src="{% static 'assets/js/imagesloaded.js' %}"></script>
+
+		<script src="{% static 'assets/js/custom.js' %}"></script>
+		<script src="{% static 'assets/js/headingtext.js' %}"></script>
+		<script src="{% static 'assets/js/dropzone.js' %}"></script>
+		<!-- ============================================================== -->
+		<!-- Date Booking Script -->
+		<script src="{% static 'assets/js/moment.min.js' %}"></script>
+		<script src="{% static 'assets/js/daterangepicker.js' %}"></script>
+
+		<!-- Map -->
+		<script src="https://maps.google.com/maps/api/js?key="></script>
+		<script src="{% static 'assets/js/map_infobox.js' %}"></script>
+		<script src="{% static 'assets/js/markerclusterer.js' %}"></script>
+		<script src="{% static 'assets/js/map.js' %}"></script>
+		<!-- This page plugins -->
+
+    </head>
+
+    <body class="blue-skin">
+
+        {% include 'includes/navbar.html'%}
+        {% block content %}
+        <!-- content -->
+        {% endblock %}
+        <!-- footer -->
+        {% include 'includes/footer.html'%}

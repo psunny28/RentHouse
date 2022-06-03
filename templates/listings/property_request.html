@@ -1,0 +1,211 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load humanize %}
+{% block title %}Submit a property request{% endblock %}
+{% block content %}
+<!-- ============================ Page Title Start================================== -->
+			<div class="page-title">
+				<div class="container">
+					<div class="row">
+						<div class="col-lg-12 col-md-12">
+
+							<h2 class="ipt-title">Submi a Property Post Request!</h2>
+							<span class="ipn-subtitle">You can submit your property details and then we will contact you to onboard(online) your property.</span>
+
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- ============================ Page Title End ================================== -->
+
+			<!-- ============================ Submit Property Start ================================== -->
+			<section class="gray-simple">
+
+				<div class="container">
+					<div class="row">
+						<div class="col-lg-12 col-md-12">
+
+							<!-- <div class="alert alert-success" role="alert">
+							<p>Please, Sign In before you submit a property. If you don't have an account you can create one by <a href="{% url 'login' %}">Clicking Here</a></p>
+							</div> -->
+							{% include 'includes/alerts.html' %}
+
+						</div>
+
+						<!-- Submit Form -->
+						<div class="col-lg-12 col-md-12">
+
+							<div class="submit-page">
+								<form action="{% url 'property_request' %}" method="post">
+									{% csrf_token %}
+
+								<!-- Basic Information -->
+								<div class="form-submit">
+									<h3>Basic Information</h3>
+									<div class="submit-section">
+										<div class="row">
+
+											<div class="form-group col-md-12">
+												<label>Property Title</label>
+												<input type="text" name="property_title" class="form-control" required>
+											</div>
+
+											<div class="form-group col-md-6">
+												<label>Status</label>
+												<select id="availfor" name="avail_for" class="form-control" required>
+													<option>&nbsp;</option>
+													<option>Male</option>
+													<option>Female</option>
+													<option>Couples</option>
+													<option>Unisex</option>
+													<option>Family</option>
+													<option>Student</option>
+													<option>All</option>
+												</select>
+											</div>
+
+											<div class="form-group col-md-6">
+												<label>Property Type</label>
+												<select id="ptypes" name="property_type" class="form-control" required>
+													<option>&nbsp;</option>
+													<option>Apartment</option>
+													<option>Home</option>
+													<option>Room Set</option>
+													<option>PG/Hostel</option>
+													<option>Villa</option>
+													<option>Shop</option>
+													<option>Office</option>
+												</select>
+											</div>
+
+											<div class="form-group col-md-6">
+												<label>Price</label>
+												<input type="number" name="price" class="form-control" placeholder="Rupees/Month" required>
+											</div>
+
+											<div class="form-group col-md-6">
+												<label>Bedrooms</label>
+												<select id="bedrooms" name="bedroom" class="form-control" required>
+													<option>&nbsp;</option>
+													<option>1</option>
+													<option>2</option>
+													<option>3</option>
+													<option>4</option>
+													<option>5</option>
+												</select>
+											</div>
+
+											<div class="form-group col-md-6">
+												<label>Bathrooms</label>
+												<select id="bathrooms" name="bathroom" class="form-control" required>
+													<option>&nbsp;</option>
+													<option>1</option>
+													<option>2</option>
+													<option>3</option>
+													<option>4</option>
+													<option>5</option>
+												</select>
+											</div>
+
+										</div>
+									</div>
+								</div>
+
+								<!-- Location -->
+								<div class="form-submit">
+									<h3>Location</h3>
+									<div class="submit-section">
+										<div class="row">
+
+											<div class="form-group col-md-6">
+												<label>Address</label>
+												<input type="text" name="address" class="form-control" required>
+											</div>
+
+											<div class="form-group col-md-6">
+												<label>City</label>
+												<input type="text" name="city" class="form-control" required>
+											</div>
+
+											<div class="form-group col-md-6">
+												<label>State</label>
+												<input type="text" name="state" class="form-control" required>
+											</div>
+
+											<div class="form-group col-md-6">
+												<label>Pin Code</label>
+												<input type="number" name="pincode" class="form-control" required>
+											</div>
+
+										</div>
+									</div>
+								</div>
+
+								<!-- Detailed Information -->
+								<div class="form-submit">
+									<h3>Detailed Information</h3>
+									<div class="submit-section">
+										<div class="row">
+
+											<div class="form-group col-md-12">
+												<label>Description</label>
+												<textarea class="form-control h-120" name="description"></textarea>
+											</div>
+
+										</div>
+									</div>
+								</div>
+
+								<!-- Contact Information -->
+								<div class="form-submit">
+									<h3>Contact Information</h3>
+									<div class="submit-section">
+										<div class="row">
+
+											<div class="form-group col-md-6">
+												<label>Name</label>
+												<input type="text" name="name" class="form-control" {% if user.is_authenticated %} value="{{user.first_name}} {{user.last_name}}" {% endif %} required>
+											</div>
+
+											<div class="form-group col-md-6">
+												<label>Email</label>
+												<input type="email" name="email" class="form-control" {% if user.is_authenticated %} value="{{user.email}}" {% endif %}>
+											</div>
+
+											<div class="form-group col-md-6">
+												<label>Phone</label>
+												<input type="text" name="phone" maxlength="11" class="form-control" {% if user.is_authenticated %} value="{{user.phone_number}}" {% endif %} required>
+											</div>
+
+											<div class="form-group col-md-6">
+												<label>Phone Secondary (Optional)</label>
+												<input type="text" name="secondary_phone" maxlength="11" class="form-control">
+											</div>
+
+										</div>
+									</div>
+								</div>
+
+								<!-- <div class="form-group col-lg-12 col-md-12">
+									<label>GDPR Agreement *</label>
+									<ul class="no-ul-list">
+										<li>
+											<input id="aj-1" class="checkbox-custom" name="aj-1" type="checkbox">
+											<label for="aj-1" class="checkbox-custom-label">I consent to having this website store my submitted information so they can respond to my inquiry.</label>
+										</li>
+									</ul>
+								</div> -->
+
+								<div class="form-group col-lg-12 col-md-12">
+									<button class="btn btn-theme-light-2 rounded" type="submit">Submit Request</button>
+								</div>
+								</form>
+							</div>
+						</div>
+
+					</div>
+				</div>
+
+			</section>
+			<!-- ============================ Submit Property End ================================== -->
+{% endblock %}

@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Our Agents | Get In Touch{% endblock %}
+{% block content %}
+<!-- ============================ Page Title Start================================== -->
+<div class="page-title">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12 col-md-12">
+
+        <h2 class="ipt-title">All Agents</h2>
+        <span class="ipn-subtitle">Lists of our all expert agents</span>
+
+      </div>
+    </div>
+  </div>
+</div>
+<!-- ============================ Page Title End ================================== -->
+
+<!-- ============================ Agent List Start ================================== -->
+<section class="gray-simple">
+
+  <div class="container">
+    <div class="row">
+      {% if agents %}
+      {% for agent in agents %}
+      <!-- Single Agent -->
+      <div class="col-lg-4 col-md-6 col-sm-12">
+        <div class="agents-grid">
+
+          <div class="agents-grid-wrap">
+
+            <div class="fr-grid-thumb">
+              <a href="{% url 'single_agent' agent.id %}">
+                <img src="{{agent.photo.url}}" class="img-fluid mx-auto" alt="agent-photo" />
+              </a>
+            </div>
+
+            <div class="fr-grid-deatil">
+              <div class="fr-grid-deatil-flex">
+                <h5 class="fr-can-name"><a href="#">{{agent.name}}</a></h5>
+                <span class="agent-property">({{agent.designation}})</span><br>
+                <!-- <span class="agent-property">302 Properties</span> -->
+              </div>
+              <div class="fr-grid-deatil-flex-right">
+                <div class="agent-email"><a href="#"><i class="ti-email"></i></a></div>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="fr-grid-info">
+            <ul>
+              {% if user.is_authenticated %}
+              <li><strong>Call:</strong>{{agent.phone}}</li>
+              {% endif %}
+
+              <!-- <li>
+                <div class="fr-can-rating">
+                  <i class="fas fa-star filled"></i>
+                  <i class="fas fa-star filled"></i>
+                  <i class="fas fa-star filled"></i>
+                  <i class="fas fa-star filled"></i>
+                  <i class="fas fa-star"></i>
+                  <span class="reviews_text">(42 Reviews)</span>
+                </div>
+              </li> -->
+            </ul>
+          </div>
+
+          <div class="fr-grid-footer">
+            <div class="fr-grid-footer-flex">
+              <span class="fr-position"><i class="lni-map-marker"></i>{{agent.city}}</span>
+            </div>
+            <div class="fr-grid-footer-flex-right">
+              <a href="{% url 'single_agent' agent.id %}" class="prt-view" tabindex="0">View</a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      {% endfor %}
+      {% else %}
+      <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 text-center">
+          <a class="btn btn-theme-light-2 rounded">No agents available</a>
+        </div>
+      </div>
+      {% endif %}
+
+
+    </div>
+
+  </div>
+</section>
+<!-- ============================ Agent List End ================================== -->
+{% endblock %}

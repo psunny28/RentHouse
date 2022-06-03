@@ -1,0 +1,14 @@
+{% load static %}
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+{% if messages %}
+    {% for message in messages %}
+    <div id="message">
+      <div {% if message.tags %} class="alert alert-{{ message.tags }} alert-dismissible" {% endif %} role="alert">
+        <a href="#" class="close" data-dismiss="alert"><b><span aria-hidden="true">&times;</span></b></a>
+        {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}{% endif %}
+        {{ message }}
+      </div>
+    </div>
+    {% endfor %}
+
+{% endif %}

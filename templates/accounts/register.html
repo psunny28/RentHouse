@@ -1,0 +1,112 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Create an Account | Rent House{% endblock %}
+{% block content %}
+
+<!-- Registration page start-->
+<section>
+    <div class="row justify-content-center">
+      <div class="modal-dialog-centered" style="width:45%;">
+        <div class="modal-content" id="sign-up">
+          <div class="modal-body">
+            <h2 class="mb-4">Create an account</h2>
+            {% include 'includes/alerts.html' %}
+            {{form.email.errors}}
+            {{form.non_field_errors}}
+            <div class="login-form">
+              <form action="{% url 'register' %}" method="POST">
+                {% csrf_token %}
+                <div class="row">
+
+                  <div class="col-lg-6 col-md-6">
+                    <div class="form-group">
+                      <div class="input-with-icon">
+                        {{form.first_name}}
+                        <i class="ti-user"></i>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-lg-6 col-md-6">
+                    <div class="form-group">
+                      <div class="input-with-icon">
+                        {{form.last_name}}
+                        <i class="ti-user"></i>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-lg-6 col-md-6">
+                    <div class="form-group">
+                      <div class="input-with-icon">
+                        {{form.email}}
+                        <i class="ti-email"></i>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-lg-6 col-md-6">
+                    <div class="form-group">
+                      <div class="input-with-icon">
+                        {{form.phone_number}}
+                        <i class="lni-phone-handset"></i>
+                      </div>
+                    </div>
+                  </div>
+
+
+                  <div class="col-lg-6 col-md-6">
+                    <div class="form-group">
+                      <div class="input-with-icon">
+                        {{form.password}}
+                        <i class="ti-lock"></i>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-lg-6 col-md-6">
+                    <div class="form-group">
+                      <div class="input-with-icon">
+                        {{form.confirm_password}}
+                        <i class="ti-lock"></i>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- <div class="col-lg-12 col-sm-12">
+                    <div class="form-group">
+                      <div class="input-with-icon">
+                        <select class="form-control">
+                          <option>As a Tenant</option>
+                          <option name="is_landlord">As a House Owner</option>
+                        </select>
+                        <i class="ti-briefcase"></i>
+                      </div>
+                    </div>
+                  </div> -->
+
+                </div>
+
+                <div class="form-group">
+                  <button type="submit" class="btn btn-md full-width btn-theme-light-2 rounded">Sign Up</button>
+                </div>
+
+              </form>
+            </div>
+            <!-- <div class="modal-divider"><span>Or Sign Up with</span></div>
+            <div class="social-login mb-2">
+              <ul>
+                <li><a href="#" class="btn connect-fb"><i class="ti-facebook"></i>Facebook</a></li>
+                <li><a href="#" class="btn connect-google"><i class="ti-google"></i>Google+</a></li>
+              </ul>
+            </div> -->
+            <div class="text-center">
+              <p class="mt-3"><i class="ti-user mr-1"></i>Already Have An Account? <a href="{% url 'login' %}" class="link">Go For LogIn</a></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</section>
+<div class="clearfix"></div>
+{% endblock %}

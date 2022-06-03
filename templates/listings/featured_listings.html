@@ -1,0 +1,315 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% load humanize %}
+{% block title %}Find Featured Properties{% endblock %}
+{% block content %}
+
+<!-- ============================ Hero Banner  Start================================== -->
+<!-- ============================ Page Title Start================================== -->
+<div class="page-title">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12 col-md-12">
+
+        <h2 class="ipt-title">Feature Properties</h2>
+        <span class="ipn-subtitle">Featured Property List</span>
+
+      </div>
+    </div>
+  </div>
+</div>
+<!-- ============================ Page Title End ================================== -->
+<!-- ============================ Hero Banner End ================================== -->
+<!-- This is search script -->
+<!-- ============================================================== -->
+
+<script>
+  function openFilterSearch() {
+    document.getElementById("filter_search").style.display = "block";
+  }
+  function closeFilterSearch() {
+    document.getElementById("filter_search").style.display = "none";
+  }
+</script>
+
+<!-- ============================ All Property ================================== -->
+<section class="gray pt-5">
+  <div class="container">
+
+    <div class="row">
+      <div class="col-lg-12 col-md-12">
+        <div class="filter_search_opt">
+          <a href="javascript:void(0);" onclick="openFilterSearch()">Search Property<i class="ml-2 ti-menu"></i></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <!-- property Sidebar -->
+      <div class="col-lg-4 col-md-4 col-sm-12">
+        <form action="{% url 'search' %}">
+        <div class="simple-sidebar sm-sidebar" id="filter_search"  style="left:0;">
+
+          <div class="search-sidebar_header">
+
+            <h4 class="ssh_heading">Close Filter</h4>
+            <button onclick="closeFilterSearch()" class="w3-bar-item w3-button w3-large"><i class="ti-close"></i></button>
+          </div>
+
+            <!-- Find New Property -->
+            <div class="sidebar-widgets">
+
+              <div class="form-group simple">
+                <div class="input-with-icon">
+                  <input type="text" class="form-control" name="keywords" placeholder="Search for a location, Landmark, Pincode" value="{{values.keywords}}">
+                  <i class="ti-search"></i>
+                </div>
+              </div>
+
+              <div class="form-group simple">
+                <select name="city" id="cities" class="form-control">
+                  <option value="">&nbsp;</option>
+                    {% for key,value in city_choices.items %}
+                    <option value="{{key}}"
+                    {% if key == values.city %}
+                      selected
+                    {% endif %}>{{value}}</option>
+                    {% endfor %}
+                </select>
+              </div>
+
+              <div class="form-group simple">
+                <div class="simple-input">
+                  <select class="for-control" name="property_type" id="ptypes">
+                    <option value="">&nbsp;</option>
+                    {% for key,value in property_choices.items %}
+                    <option value="{{key}}"
+                    {% if key == values.property_type %}
+                      selected
+                    {% endif %}>{{value}}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-group simple">
+                <div class="simple-input">
+                  <select class="for-control" name="available_for" id="availfor">
+                    <option value="">&nbsp;</option>
+                  {% for key,value in availability_choices.items %}
+                    <option value="{{key}}"
+                    {% if key == values.available_for %}
+                      selected
+                    {% endif %}>{{value}}</option>
+                  {% endfor %}
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-group simple">
+                <div class="simple-input">
+                  <select name="price" id="price" class="form-control">
+                    <option value="">&nbsp;</option>
+                    {% for key,value in price_choices.items %}
+                      <option value="{{key}}"
+                      {% if key == values.price %}
+                        selected
+                      {% endif %}>{{value}}</option>
+                      {% endfor %}
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-group simple">
+                <div class="simple-input">
+                  <select name="bedroom" id="bedrooms" class="form-control">
+                    <option value="">&nbsp;</option>
+                  {% for key,value in bedroom_choices.items %}
+                    <option value="{{key}}"
+                    {% if key == values.bedroom %}
+                      selected
+                    {% endif %}>{{value}}</option>
+                  {% endfor %}
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-group simple">
+                <div class="simple-input">
+                  <select name="bathroom" id="bathrooms" class="form-control">
+                    <option value="">&nbsp;</option>
+                  {% for key,value in bathroom_choices.items %}
+                    <option value="{{key}}"
+                    {% if key == values.bathroom %}
+                      selected
+                    {% endif %}>{{value}}</option>
+                  {% endfor %}
+                  </select>
+                </div>
+              </div>
+
+              <button type="submit"class="btn btn btn-theme-light-2 rounded full-width">Find New Home</button>
+
+
+            </div>
+        </div>
+        <!-- Sidebar End -->
+        </form>
+
+      </div>
+
+
+      <div class="col-lg-8 col-md-12 list-layout">
+
+          <div class="row justify-content-center">
+            <div class="col-lg-12 col-md-12">
+              <div class="item-shorting-box">
+                <div class="item-shorting clearfix">
+                  <div class="left-column pull-left"><h4 class="m-0">Found {{listing_count}} Results</h4></div>
+                </div>
+                <div class="item-shorting-box-right">
+                  <div class="shorting-by">
+                    <select id="shorty" class="form-control">
+                      <option value="">&nbsp;</option>
+                      <option value="1">Low Price</option>
+                      <option value="2">High Price</option>
+                      <option value="3">Most Popular</option>
+                    </select>
+                  </div>
+                  <!-- <ul class="shorting-list">
+                    <li><a href="grid-layout-with-sidebar.html"><i class="ti-layout-grid2"></i></a></li>
+                    <li><a href="listings-list-with-sidebar.html" class="active"><i class="ti-view-list"></i></a></li>
+                  </ul> -->
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {% if listings %}
+            {% for listing in listings %}
+          <!-- Single Property Start -->
+          <div class="col-lg-12 col-md-12">
+            <div class="property-listing property-1">
+
+              <div class="listing-img-wrapper">
+                <a href="{{listing.get_absolute_url}}" target="_blank">
+                  <img src="{{listing.photo_main.url}}" class="img-fluid mx-auto" alt="property-photo" />
+                </a>
+              </div>
+
+              <div class="listing-content">
+
+                <div class="listing-detail-wrapper-box">
+                  <div class="listing-detail-wrapper">
+                    <div class="listing-short-detail">
+                      <h4 class="listing-name"><a href="{{listing.get_absolute_url}}" target="_blank">{{listing.title}} <img src="{% static 'assets/img/veryfy.png' %}" width="20" alt="verified"></a></h4>
+                      <div class="fr-can-rating">
+                        <i class="fas fa-star filled"></i>
+                        <i class="fas fa-star filled"></i>
+                        <i class="fas fa-star filled"></i>
+                        <i class="fas fa-star filled"></i>
+                        <i class="fas fa-star"></i>
+                        <span class="reviews_text">(42 Reviews)</span>
+                      </div>
+                      <span class="prt-types rent">{{listing.property_type}}</span>
+                      <span class="_list_blickes types">{{listing.available_for}}</span>
+                    </div>
+                    <div class="list-price">
+                      <h6 class="listing-card-info-price">₹{{listing.price | intcomma}}<sub>/month</sub></h6>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="price-features-wrapper">
+                  <div class="list-fx-features">
+                    <div class="listing-card-info-icon">
+                      <div class="inc-fleat-icon"><img src="{% static 'assets/img/bed.svg' %}" width="13" alt="" /></div>{{listing.bedroom}} Beds
+                    </div>
+                    <div class="listing-card-info-icon">
+                      <div class="inc-fleat-icon"><img src="{% static 'assets/img/bathtub.svg' %}" width="13" alt="" /></div>{{listing.bathroom}} Bath
+                    </div>
+                    <div class="listing-card-info-icon">
+                      <div class="inc-fleat-icon"><img src="{% static 'assets/img/move.svg' %}" width="13" alt="" /></div>{{listing.area_sqft_size}} sqft
+                    </div>
+                  </div>
+                </div>
+
+                <div class="listing-footer-wrapper">
+                  <div class="listing-locate">
+                    <span class="listing-location"><i class="ti-location-pin"></i>{{listing.city}}, {{listing.state}}, {{listing.pincode}}</span>
+                  </div>
+                  <div class="listing-detail-btn">
+                    <a href="{{listing.get_absolute_url}}" target="_blank" class="more-btn">View</a>
+                  </div>
+                </div>
+
+              </div>
+
+            </div>
+          </div>
+          <!-- Single Property End -->
+          {% endfor %}
+        {% else %}
+          <div class="col-ms-12">
+            <h3> No properties avaialable at the moment!</h3>
+          </div>
+
+        {% endif %}
+
+        </div>
+
+        <!-- Pagination -->
+        <div class="row">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            {% if listings.has_other_pages %}
+            <ul class="pagination p-center">
+              {% if listings.has_previous %}
+              <li class="page-item">
+                <a class="page-link" href="?page={{listings_previous_page_number}}" aria-label="Previous">
+                <span class="ti-arrow-left"></span>
+                <span class="sr-only">Previous</span>
+                </a>
+              </li>
+              {% else %}
+                <li class="page-item" disabled>
+                  <a class="page-link" aria-label="Previous">
+                  <span class="ti-arrow-left"></span>
+                  <span class="sr-only">Previous</span>
+                  </a>
+                </li>
+              {% endif %}
+              {% for i in listings.paginator.page_range %}
+                {% if listings == i %}
+                  <li class="page-item active"><a class="page-link">{{i}}</a></li>
+                {% else %}
+                <li class="page-item"><a class="page-link" href="?page={{i}}">{{i}}</a></li>
+                {% endif %}
+              {% endfor %}
+              {% if listings.has_next %}
+              <li class="page-item">
+                <a class="page-link" href="?page={{listings_next_page_number}}" aria-label="Next">
+                <span class="ti-arrow-right"></span>
+                <span class="sr-only">Next</span>
+                </a>
+              </li>
+              {% else %}
+                <li class="page-item" disabled>
+                  <a class="page-link" aria-label="Next">
+                  <span class="ti-arrow-right"></span>
+                  <span class="sr-only">Next</span>
+                  </a>
+                </li>
+              {% endif %}
+            </ul>
+            {% endif %}
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+</section>
+
+
+{% endblock %}

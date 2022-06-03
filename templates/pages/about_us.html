@@ -1,0 +1,189 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}About Us{% endblock %}
+{% block content %}
+<!-- ============================ Page Title Start================================== -->
+<div class="page-title">
+<div class="container">
+  <div class="row">
+    <div class="col-lg-12 col-md-12">
+
+      <h2 class="ipt-title">About Us</h2>
+      <span class="ipn-subtitle">Who we are & our mission</span>
+
+    </div>
+  </div>
+</div>
+</div>
+<!-- ============================ Page Title End ================================== -->
+
+<!-- ============================ Our Story Start ================================== -->
+<section>
+
+<div class="container">
+
+  <!-- row Start -->
+  <div class="row align-items-center">
+
+    <div class="col-lg-6 col-md-6">
+      <img src="{% static 'assets/img/sb.png' %}" class="img-fluid" alt="" />
+    </div>
+
+    <div class="col-lg-6 col-md-6">
+      <div class="story-wrap explore-content">
+
+        <h2>Our Story</h2>
+        {% if aboutcontent %}
+        {% for content in aboutcontent %}
+        {{content.our_story|safe}}
+        {% endfor %}
+        {% else %}
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip.</p>
+        {% endif %}
+
+      </div>
+    </div>
+
+  </div>
+  <!-- /row -->
+
+</div>
+
+</section>
+<!-- ============================ Our Story End ================================== -->
+
+<!-- ================= Our Team================= -->
+<section class="gray-bg">
+<div class="container">
+
+  <div class="row">
+    <div class="col-lg-12 col-md-12">
+      <div class="sec-heading center">
+        <h2>Meet Our Team</h2>
+        <p>Professional & Dedicated Team</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+
+      <div class="team-slide item-slide">
+        {% if AboutTeamMembers %}
+        {% for member in AboutTeamMembers %}
+        <!-- Single Teamm -->
+        <div class="single-team">
+          <div class="team-grid">
+
+            <div class="teamgrid-user">
+              <img src="{{member.profile_img.url}}" alt="" class="img-fluid" />
+            </div>
+
+            <div class="teamgrid-content">
+              <h4>{{member.name}}</h4>
+              <span>{{member.designation}}</span>
+            </div>
+
+            <div class="teamgrid-social">
+              <ul>
+                {% if member.facebook_link %}
+                <li><a href="{{member.facebook_link}}" target="_blank" class="f-cl"><i class="ti-facebook"></i></a></li>
+                {% endif %}
+                {% if member.twitter_link %}
+                <li><a href="{{member.twitter_link}}" target="_blank" class="t-cl"><i class="ti-twitter"></i></a></li>
+                {% endif %}
+                {% if member.instagram_link %}
+                <li><a href="{{member.instagram_link}}" target="_blank" class="i-cl"><i class="ti-instagram"></i></a></li>
+                {% endif %}
+                {% if member.linkedin_link %}
+                <li><a href="{{member.linkedin_link}}" target="_blank" class="l-cl"><i class="ti-linkedin"></i></a></li>
+                {% endif %}
+              </ul>
+            </div>
+
+          </div>
+        </div>
+        {% endfor %}
+        {% endif %}
+
+      </div>
+
+    </div>
+  </div>
+
+</div>
+</section>
+<!-- =============================== Our Team ================================== -->
+
+<!-- ================= Our Mission ================= -->
+<section>
+<div class="container">
+
+  <div class="row">
+    <div class="col-lg-12 col-md-12">
+      <div class="sec-heading center">
+        <h2>Our Mission & Work Process</h2>
+        <p>Professional & Dedicated Team</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="row align-items-center">
+
+    <div class="col-lg-6 col-md-6">
+
+      <div class="icon-mi-left">
+        <i class="ti-lock theme-cl"></i>
+        <div class="icon-mi-left-content">
+          <h4>Fully Secure & 24x7 Dedicated Support</h4>
+          {% if aboutcontent %}
+          {% for content in aboutcontent %}
+          {{content.security|safe}}
+          {% endfor %}
+          {% else %}
+          <p>If you are an individual client, or just a business startup looking for good backlinks for your website.</p>
+          {% endif %}
+        </div>
+      </div>
+
+      <div class="icon-mi-left">
+        <i class="ti-twitter theme-cl"></i>
+        <div class="icon-mi-left-content">
+          <h4>Manage your Social & Busness Account Carefully</h4>
+          {% if aboutcontent %}
+          {% for content in aboutcontent %}
+          {{content.manage|safe}}
+          {% endfor %}
+          {% else %}
+          <p>If you are an individual client, or just a business startup looking for good backlinks for your website.</p>
+          {% endif %}
+        </div>
+      </div>
+
+      <div class="icon-mi-left">
+        <i class="ti-layers theme-cl"></i>
+        <div class="icon-mi-left-content">
+          <h4>We are Very Hard Worker and loving</h4>
+          {% if aboutcontent %}
+          {% for content in aboutcontent %}
+          {{content.promise|safe}}
+          {% endfor %}
+          {% else %}
+          <p>If you are an individual client, or just a business startup looking for good backlinks for your website.</p>
+          {% endif %}
+        </div>
+      </div>
+
+    </div>
+
+    <div class="col-lg-6 col-md-6">
+
+      <img src="{% static 'assets/img/vec-2.png' %}" class="img-fluid" alt="" />
+    </div>
+
+  </div>
+</div>
+</section>
+<!-- ================= Our Mission ================= -->
+{% endblock %}
