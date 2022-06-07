@@ -43,7 +43,7 @@
         <ul class="nav-menu nav-menu-social align-to-right">
           {% if user.id is None %}
           <li class="add-listing blue">
-            <a href="{% url 'login' %}" class="text-success"><img src="{% static 'assets/img/user-light.svg' %}" width="16" alt="signin" class="mr-2" />Sign in</a>
+            <a href="{% url 'login' %}" class="text-success"><img src="{% static 'assets/img/user-light.svg' %}" width="16" alt="signin" class="mr-1" />Sign in</a>
           </li>
           <li class="add-listing">
             <a href="{% url 'property_request' %}"><i class="fas fa-home"> </i> Post Property</a>

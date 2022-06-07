@@ -45,7 +45,6 @@ INSTALLED_APPS += [
     'multiselectfield',
     'bootstrap5',
     'imagekit',
-    'admin_honeypot',
     'import_export',
     'ckeditor'
 ]
