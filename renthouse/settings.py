@@ -92,8 +92,12 @@ WSGI_APPLICATION = 'renthouse.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'renthouse',                      
+        'USER': 'postgres',
+        'PASSWORD': 'renthouse@4632876246',
+        'HOST': 'localhost',
+        'PORT': '5432',
     }
 }
 
