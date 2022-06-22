@@ -8,7 +8,7 @@ from category.models import Category
 from accounts.models import User
 from django.core.validators import RegexValidator
 from imagekit.models import ProcessedImageField
-from imagekit.processors import ResizeCanvas, ResizeToFill
+from imagekit.processors import ResizeCanvas, ResizeToFill, ResizeToFit
 from django.urls import reverse
 
 class Watermark(object):
@@ -107,13 +107,13 @@ class Listing(models.Model):
     owner_phone =   models.CharField(validators=[RegexValidator("^0?[5-9]{1}\d{9}$")], max_length=10, blank=False)
     owner_secondary_phone =   models.CharField(validators=[RegexValidator("^0?[5-9]{1}\d{9}$")], max_length=10, blank=True,help_text ="(Optional)")
     owner_photo =   ProcessedImageField(upload_to='images/property_images/%Y/%m/%d/', processors=[ResizeToFill(400, 400)],format='JPEG', options={'quality': 80}, blank=False)
-    photo_main = ProcessedImageField(upload_to='images/property_images/%Y/%m/%d/', processors=[ResizeCanvas(1600, 1080), Watermark(), Watermark()],format='JPEG', options={'quality': 80}, blank=False)
-    front_home_photo = ProcessedImageField(upload_to='images/property_images/%Y/%m/%d/', processors=[ResizeCanvas(1600, 1080), Watermark()],format='JPEG', options={'quality': 80}, blank=False)
-    first_room_photo = ProcessedImageField(upload_to='images/property_images/%Y/%m/%d/', processors=[ResizeCanvas(1600, 1080), Watermark()],format='JPEG', options={'quality': 80}, blank=False)
-    second_room_photo = ProcessedImageField(upload_to='images/property_images/%Y/%m/%d/', processors=[ResizeCanvas(1600, 1080), Watermark()],format='JPEG', options={'quality': 80}, blank=True, help_text ="(Optional)")
-    third_room_photo = ProcessedImageField(upload_to='images/property_images/%Y/%m/%d/', processors=[ResizeCanvas(1600, 1080), Watermark()],format='JPEG', options={'quality': 80}, blank=True, help_text ="(Optional)")
-    kitchen_photo = ProcessedImageField(upload_to='images/property_images/%Y/%m/%d/', processors=[ResizeCanvas(1600, 1080), Watermark()],format='JPEG', options={'quality': 80}, blank=True, help_text ="(Optional)")
-    bathroom_photo = ProcessedImageField(upload_to='images/property_images/%Y/%m/%d/', processors=[ResizeCanvas(1600, 1080), Watermark()],format='JPEG', options={'quality': 80}, blank=False)
+    photo_main = ProcessedImageField(upload_to='images/property_images/%Y/%m/%d/', processors=[ResizeToFill(1600, 1080), Watermark(), Watermark()],format='JPEG', options={'quality': 80}, blank=False)
+    front_home_photo = ProcessedImageField(upload_to='images/property_images/%Y/%m/%d/', processors=[ResizeToFill(1600, 1080), Watermark()],format='JPEG', options={'quality': 80}, blank=False)
+    first_room_photo = ProcessedImageField(upload_to='images/property_images/%Y/%m/%d/', processors=[ResizeToFill(1600, 1080), Watermark()],format='JPEG', options={'quality': 80}, blank=False)
+    second_room_photo = ProcessedImageField(upload_to='images/property_images/%Y/%m/%d/', processors=[ResizeToFill(1600, 1080), Watermark()],format='JPEG', options={'quality': 80}, blank=True, help_text ="(Optional)")
+    third_room_photo = ProcessedImageField(upload_to='images/property_images/%Y/%m/%d/', processors=[ResizeToFill(1600, 1080), Watermark()],format='JPEG', options={'quality': 80}, blank=True, help_text ="(Optional)")
+    kitchen_photo = ProcessedImageField(upload_to='images/property_images/%Y/%m/%d/', processors=[ResizeToFill(1600, 1080), Watermark()],format='JPEG', options={'quality': 80}, blank=True, help_text ="(Optional)")
+    bathroom_photo = ProcessedImageField(upload_to='images/property_images/%Y/%m/%d/', processors=[ResizeToFill(1600, 1080), Watermark()],format='JPEG', options={'quality': 80}, blank=False)
     property_video = models.FileField(upload_to='videos/property_videos/%Y/%m/%d/', default=None, blank=True, help_text ="(Optional)")
     views   =   models.IntegerField(default=0, editable=False)
     favourites  =   models.ManyToManyField(User, related_name='favorite', default=None, blank=True, editable=False)
@@ -136,7 +136,7 @@ class Listing(models.Model):
 
 class PropertyGallary(models.Model):
     property = models.ForeignKey(Listing, on_delete=models.CASCADE)
-    image  =   ProcessedImageField(upload_to='images/property_images/%Y/%m/%d/', processors=[ResizeCanvas(1600, 1080), Watermark()],format='JPEG', options={'quality': 80}, max_length=200)
+    image  =   ProcessedImageField(upload_to='images/property_images/%Y/%m/%d/', processors=[ResizeToFill(1600, 1080), Watermark()],format='JPEG', options={'quality': 80}, max_length=200)
 
     def __str__(self):
         return self.property.title
