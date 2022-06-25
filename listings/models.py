@@ -16,7 +16,7 @@ class Watermark(object):
         draw = ImageDraw.Draw(img)
         font = ImageFont.truetype('arial.ttf', 30)
         text = '© RENTHOUSE.CO.IN'
-        draw.text((650, 700), text, fill=(242, 243, 244), font = font)
+        draw.text((650, 700), text, fill=(242, 243, 244, 1), font = font)
         return img
 
 class Listing(models.Model):
