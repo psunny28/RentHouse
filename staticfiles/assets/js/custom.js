@@ -678,4 +678,4 @@ $(function() {
 
 setTimeout(function(){
     $('#message').fadeOut('slow')
-}, 10000)
+}, 5000)

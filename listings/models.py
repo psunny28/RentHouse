@@ -8,7 +8,7 @@ from category.models import Category
 from accounts.models import User
 from django.core.validators import RegexValidator
 from imagekit.models import ProcessedImageField
-from imagekit.processors import ResizeCanvas, ResizeToFill, ResizeToFit
+from imagekit.processors import ResizeToFill, ResizeToFit
 from django.urls import reverse
 
 class Watermark(object):
